@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
-  Rocket, Code2, Play, PlusSquare, UserPlus, Gift, Compass
+  Rocket, Code2, Play, PlusSquare, UserPlus, Gift, Compass,
+  Brain, Zap, Heart, CalendarDays, Shield, Plane
 } from 'lucide-react';
 
 // ==========================================
@@ -48,7 +49,7 @@ const CONTENT = {
       },
       nano: {
         title: 'Полная консультация',
-        desc: '2 часа. Что узнаете о себе? Влияние имени на судьбу. Программа ума: как формируются мысли и куда сливаете энергию. Сфера реализации: таланты и предназначение. Личный год.',
+        desc: 'Полная консультация по дате рождения 2 часа Что узнаете о себе? Влияние вашего имени на жизнь и судьбу Программу вашего ума: как формируются мысли и что вас разрушает, куда вы сливаете энергию? Как использовать энергию действия для достижения целей Ваша сфера реализации: сильные качества, таланты и предназначение. Какие энергии даны вам от рождения, а какие нужно нарабатывать. В каком личном году вы сейчас и что он вам готовит.',
         priceLabel: 'СТОИМОСТЬ',
         price: '15 999 ₽',
         oldPrice: '20 000 ₽'
@@ -66,6 +67,18 @@ const CONTENT = {
         priceLabel: 'СТОИМОСТЬ',
         price: '11 499 ₽',
         oldPrice: '15 000 ₽'
+      },
+      calendar: {
+        title: 'Календарь успеха 2026',
+        desc: 'Позволяет грамотно построить стратегию на каждый день, месяц, год в целом, чтобы достичь успеха в любой сфере, легко получать желаемое и изменить свою жизнь!',
+        priceLabel: 'СТОИМОСТЬ',
+        price: '3 399 ₽'
+      },
+      mentoring: {
+        title: 'Личное сопровождение',
+        desc: 'Индивидуальное сопровождение и работа с вашими запросами. Длительность: 1 месяц.',
+        priceLabel: 'СТОИМОСТЬ',
+        price: '100 599 ₽'
       },
       tech: {
         title: 'Туры для женщин',
@@ -158,6 +171,18 @@ const CONTENT = {
         priceLabel: 'PRICE',
         price: '11,499 RUB',
         oldPrice: '15,000 RUB'
+      },
+      calendar: {
+        title: 'Success Calendar 2026',
+        desc: 'Allows you to build a strategy for every day, month, and year to achieve success in any area, easily get what you want, and change your life!',
+        priceLabel: 'PRICE',
+        price: '3,399 RUB'
+      },
+      mentoring: {
+        title: 'Personal Mentoring',
+        desc: 'Individual mentoring and work with your requests. Duration: 1 month.',
+        priceLabel: 'PRICE',
+        price: '100,599 RUB'
       },
       tech: {
         title: 'Tours for Women',
@@ -553,36 +578,38 @@ const CreatorCard = ({ lang }) => {
 
         {/* === ЛЕВАЯ ПАНЕЛЬ (DOCK) === */}
         <div 
-          className="relative z-50 flex flex-col items-center justify-between bg-[#022c22]/80 backdrop-blur-xl py-4 px-2 rounded-[2rem] border border-emerald-400/40 shadow-[0_10px_40px_rgba(6,78,59,0.3)] w-[3.5rem] shrink-0 no-tilt cursor-default"
+          className="relative z-50 flex flex-col items-center justify-between bg-[#022c22]/80 backdrop-blur-xl py-3 px-2 rounded-[2rem] border border-emerald-400/40 shadow-[0_10px_40px_rgba(6,78,59,0.3)] w-[3.5rem] shrink-0 no-tilt cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Световой шар */}
           <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-emerald-500/30 rounded-full blur-[6px] shadow-[0_0_15px_rgba(16,185,129,0.5)] pointer-events-none z-0" style={{ animation: 'scan-vertical 4s ease-in-out infinite' }}></div>
 
-          <div className="flex flex-col gap-2.5 w-full items-center relative z-10">
+          <div className="flex flex-col gap-1.5 sm:gap-2 w-full items-center relative z-10">
             {[
               { id: 'profile', icon: UserCircle2 },
-              { id: 'nano', icon: Diamond },
-              { id: 'pro', icon: Rocket },
-              { id: 'ultra', icon: Crown },
-              { id: 'tech', icon: Code2 },
+              { id: 'nano', icon: Brain },
+              { id: 'pro', icon: Zap },
+              { id: 'ultra', icon: Heart },
+              { id: 'calendar', icon: CalendarDays },
+              { id: 'mentoring', icon: Shield },
+              { id: 'tech', icon: Plane },
               { id: 'lead', icon: Gift },
             ].map((item) => (
               <button 
                 key={item.id}
                 onClick={() => setView(item.id)}
-                className={`relative p-2.5 rounded-full transition-all duration-300 flex items-center justify-center w-full ${view === item.id ? 'bg-gradient-to-br from-emerald-700 to-emerald-400 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] scale-110' : 'text-emerald-400/60 hover:text-emerald-200 hover:bg-emerald-900/40'}`}
+                className={`relative p-1.5 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center w-full ${view === item.id ? 'bg-gradient-to-br from-emerald-700 to-emerald-400 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] scale-110' : 'text-emerald-400/60 hover:text-emerald-200 hover:bg-emerald-900/40'}`}
               >
-                <item.icon className="w-4 h-4" />
+                <item.icon className="w-4 h-4 sm:w-4 sm:h-4" />
               </button>
             ))}
           </div>
           
-          <div className="w-full flex flex-col items-center gap-2 relative z-10 mt-1">
+          <div className="w-full flex flex-col items-center gap-1.5 relative z-10 mt-1">
             <div className="w-5 h-[1px] bg-emerald-900/60"></div>
             <button 
               onClick={() => setView('reviews')}
-              className={`p-2.5 w-full rounded-full transition-all duration-300 flex items-center justify-center ${view === 'reviews' ? 'bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.6)] scale-110' : 'text-emerald-400/60 hover:text-emerald-200 hover:bg-emerald-900/40'}`}
+              className={`p-1.5 sm:p-2 w-full rounded-full transition-all duration-300 flex items-center justify-center ${view === 'reviews' ? 'bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.6)] scale-110' : 'text-emerald-400/60 hover:text-emerald-200 hover:bg-emerald-900/40'}`}
             >
               <Star className="w-4 h-4" />
             </button>
@@ -613,10 +640,10 @@ const CreatorCard = ({ lang }) => {
             {/* 2. ТАРИФ NANO */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'nano' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Diamond className="w-5 h-5 text-emerald-300" />
+                <Brain className="w-5 h-5 text-emerald-300" />
               </div>
               <div className="flex items-end gap-2 mb-2">
-                <h3 className="text-xl font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.nano.title}</h3>
+                <h3 className="text-[1.1rem] font-serif font-light text-emerald-100 tracking-wider whitespace-nowrap">{CONTENT[lang].views.nano.title}</h3>
               </div>
               <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
                 <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
@@ -635,7 +662,7 @@ const CreatorCard = ({ lang }) => {
             {/* 3. ТАРИФ PRO */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'pro' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Rocket className="w-5 h-5 text-emerald-300" />
+                <Zap className="w-5 h-5 text-emerald-300" />
               </div>
               <div className="flex flex-col mb-2">
                 <h3 className="text-xl font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.pro.title}</h3>
@@ -657,7 +684,7 @@ const CreatorCard = ({ lang }) => {
             {/* 4. ТАРИФ ULTRA */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'ultra' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Crown className="w-5 h-5 text-emerald-300" />
+                <Heart className="w-5 h-5 text-emerald-300" />
               </div>
               <div className="flex flex-col mb-2">
                 <h3 className="text-[1.15rem] whitespace-nowrap font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.ultra.title}</h3>
@@ -676,10 +703,52 @@ const CreatorCard = ({ lang }) => {
               </div>
             </div>
 
-            {/* 5. ТЕХНОЛОГИИ */}
+            {/* 5. КАЛЕНДАРЬ УСПЕХА */}
+            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'calendar' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
+                <CalendarDays className="w-5 h-5 text-emerald-300" />
+              </div>
+              <div className="flex flex-col mb-2">
+                <h3 className="text-[1.1rem] whitespace-nowrap font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.calendar.title}</h3>
+              </div>
+              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+                  {CONTENT[lang].views.calendar.desc}
+                </p>
+                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between">
+                   <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.calendar.priceLabel}</span>
+                   <div className="flex items-center gap-2">
+                     <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.calendar.price}</span>
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 6. СОПРОВОЖДЕНИЕ */}
+            <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'mentoring' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
+              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
+                <Shield className="w-5 h-5 text-emerald-300" />
+              </div>
+              <div className="flex flex-col mb-2">
+                <h3 className="text-[1.05rem] whitespace-nowrap font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.mentoring.title}</h3>
+              </div>
+              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+                  {CONTENT[lang].views.mentoring.desc}
+                </p>
+                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between">
+                   <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.mentoring.priceLabel}</span>
+                   <div className="flex items-center gap-2">
+                     <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.mentoring.price}</span>
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 7. ТУРЫ ДЛЯ ЖЕНЩИН */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'tech' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Code2 className="w-5 h-5 text-emerald-300" />
+                <Plane className="w-5 h-5 text-emerald-300" />
               </div>
               <h3 className="text-xl font-serif font-light text-emerald-100 tracking-wider mb-2">{CONTENT[lang].views.tech.title}</h3>
               <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
@@ -695,7 +764,7 @@ const CreatorCard = ({ lang }) => {
               </div>
             </div>
 
-            {/* 6. ЛИД-МАГНИТ (SECRET OFFER) */}
+            {/* 8. ЛИД-МАГНИТ (SECRET OFFER) */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'lead' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
                 <Gift className="w-5 h-5 text-emerald-300 animate-bounce" />
@@ -715,7 +784,7 @@ const CreatorCard = ({ lang }) => {
               </button>
             </div>
 
-            {/* 7. ОТЗЫВЫ */}
+            {/* 9. ОТЗЫВЫ */}
             <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'reviews' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="flex items-center gap-3 mb-3 shrink-0">
                 <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center shadow-[0_0_15px_rgba(6,78,59,0.2)]">
