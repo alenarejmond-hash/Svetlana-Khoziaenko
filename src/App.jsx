@@ -1058,6 +1058,17 @@ const App = () => {
     }
   }, [lang]);
 
+  // Регистрация Service Worker для работы ОФФЛАЙН (в лесу!)
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('ServiceWorker успешно зарегистрирован! Область:', registration.scope))
+          .catch(error => console.log('Ошибка регистрации ServiceWorker:', error));
+      });
+    }
+  }, []);
+
   // Магнитный 3D наклон за курсором/пальцем
   const handlePointerMove = (e) => {
     // Блокируем наклон, если карточка прямо сейчас переворачивается
