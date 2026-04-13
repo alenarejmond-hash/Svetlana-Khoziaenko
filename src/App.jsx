@@ -121,114 +121,6 @@ const CONTENT = {
     }
   },
 
-  // 🇬🇧 АНГЛИЙСКИЙ ЯЗЫК
-  en: {
-    creator: {
-      bgImage: '/bg-creator.jpg',
-      avatar: '/avatar-creator.jpg', 
-      audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл
-      badge: 'TRANSFORMATION',
-      name1: 'SVETLANA',
-      name2: 'KHOZIAENKO',
-      role: 'Tour Organizer',
-      status: 'Digital Psychologist',
-      quote1: 'TRUE TO',
-      quote2: 'YOURSELF',
-      websiteText: 'Learn more...',
-      websiteLink: 'https://t.me/svetlanahozuaenko',
-      actionText: 'BOOK A CONSULTATION',
-      actionLink: 'https://t.me/svetlanahozuaenko?text=Hello! I want to book a consultation.',
-    },
-    leadMagnet: {
-      title: 'GIFT',
-      description: 'Diagnostics. Click the button to sign up for a diagnostics session and unlock your potential.',
-      buttonText: 'BOOK DIAGNOSTICS',
-      promoCode: 'DIAGNOSTIKA',
-      link: 'https://t.me/svetlanahozuaenko?text=Hi! I have a GIFT, I want to sign up for diagnostics',
-    },
-    contact: {
-      phone: '+79779755199',
-      email: 'lanahozuaenko@gmail.com',
-      company: 'Svetlana Tours & Psychology',
-      title: 'Tour Organizer & Digital Psychologist',
-      website: 'https://t.me/svetlanahozuaenko'
-    },
-    views: {
-      profile: {
-        title: 'About Me',
-        desc: 'My name is Svetlana Khoziaenko.\nI am an organizer of transformational tours for women and a digital psychologist from Moscow.\n\nI combine travel and self-discovery to help you understand your strengths, talents, and life tasks.'
-      },
-      nano: {
-        title: 'Full Consultation',
-        duration: '2 hours',
-        desc: 'What will you learn?\n\n• Influence of your name on your destiny\n• Your mind programming and energy leaks\n• How to use action energy to achieve goals\n• Your true calling and talents\n• Your personal year forecast',
-        priceLabel: 'PRICE',
-        price: '15,999 RUB',
-        oldPrice: '20,000 RUB'
-      },
-      pro: {
-        title: 'Express Consultation',
-        duration: '45 mins',
-        desc: 'A hint for your self-realization direction.\n\nFind out in which sphere it is best to reveal your abilities and natural talents.',
-        priceLabel: 'PRICE',
-        price: '7,799 RUB',
-        oldPrice: '10,000 RUB'
-      },
-      ultra: {
-        title: 'Relationship Energy',
-        duration: '1.5 hours',
-        desc: 'Analysis of relationship energy to better understand yourself and your partner.\n\nIndividual approach to building a harmonious union.',
-        priceLabel: 'PRICE',
-        price: '11,499 RUB',
-        oldPrice: '15,000 RUB'
-      },
-      calendar: {
-        title: 'Success Calendar 2026',
-        desc: 'Allows you to build a strategy for every day, month, and year.\n\nAchieve success in any area, easily get what you want, and change your life!',
-        priceLabel: 'PRICE',
-        price: '3,399 RUB'
-      },
-      mentoring: {
-        title: 'Personal Mentoring',
-        duration: '1 month',
-        desc: 'Individual mentoring and deep work with your personal requests.',
-        priceLabel: 'PRICE',
-        price: '100,599 RUB'
-      },
-      tech: {
-        title: 'Tours for Women',
-        desc: 'A space for rebooting and internal transformations.\n\nIt is not just a vacation, it is a time to stop, hear yourself, and find new inspiration.',
-        priceLabel: 'PRICE',
-        price: 'On request',
-        oldPrice: ''
-      },
-      reviewsTitle: 'Reviews',
-      reviews: [
-        { name: 'Lyubov', date: '27.12.2025', text: '"I am grateful to Svetlana for the detailed analysis of me and my partner. Many things became clear..."' },
-        { name: 'Ekaterina', date: '29.03.2026', text: '"A true professional! I received not only answers to my questions, but also inspiration and a clear understanding of my tasks."' },
-        { name: 'Tatiana', date: '28.03.2026', text: '"Learned about my leading energies and realized I am on the right path. Highly recommend Svetlana!"' }
-      ]
-    },
-    ui: {
-      shareTitle: 'Share Contact',
-      shareDesc: 'Let them scan the QR code or send the link directly.',
-      shareText: 'Hi! Here is my digital business card:',
-      copy: 'Copy',
-      copied: 'Copied!',
-      send: 'Send',
-      installTitle: 'Install App',
-      installDesc: 'Add the business card to your Home Screen for one-click access without a browser.',
-      installStep1_1: 'Tap the ',
-      installStep1_2: 'Share',
-      installStep1_3: ' button in your browser menu (usually at the bottom).',
-      installStep2_1: 'Select ',
-      installStep2_2: '"Add to Home Screen"',
-      installStep2_3: ' from the list.',
-      done: 'Done',
-      saveContact: 'Saved from digital business card'
-    }
-  },
-
   // 📊 АНАЛИТИКА (Общая для всех языков)
   analytics: {
     yandexMetricaId: '108395630', 
@@ -1521,22 +1413,6 @@ const App = () => {
           ) : (
             <Play className="w-4 h-4 group-hover:scale-110 transition-transform ml-0.5" />
           )}
-        </button>
-
-        {/* НОВАЯ КНОПКА: СМЕНА ЯЗЫКА (RU/EN) */}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
-            setLang(prev => prev === 'ru' ? 'en' : 'ru'); // Переключатель
-          }}
-          className="active:scale-90 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/40 hover:text-white/90 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 group touch-manipulation flex items-center justify-center w-10 h-10"
-          aria-label="Сменить язык"
-        >
-          <span className="font-bold text-[11px] tracking-wider transition-transform group-hover:scale-110">
-            {lang === 'ru' ? 'EN' : 'RU'}
-          </span>
         </button>
 
         {/* КНОПКА ПОДЕЛИТЬСЯ */}
