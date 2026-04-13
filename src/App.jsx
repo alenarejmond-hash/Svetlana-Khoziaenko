@@ -16,7 +16,7 @@ const CONTENT = {
     creator: {
       bgImage: 'bg-creator.jpg',
       avatar: 'avatar-creator.jpg', 
-      audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл (можно сделать разные для RU и EN)
+      audioGreeting: 'greeting.mp3', // 🔊 Ссылка на ваш аудиофайл (можно сделать разные для RU и EN)
       badge: 'TRANSFORMATION',
       name1: 'СВЕТЛАНА',
       name2: 'ХОЗЯЕНКО',
