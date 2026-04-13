@@ -551,10 +551,10 @@ const CreatorCard = ({ lang }) => {
 
           <div className="text-center pb-2">
             <h2 className="flex flex-col items-center justify-center mb-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              <span className="text-xl sm:text-2xl font-sans font-light uppercase tracking-[0.3em] text-emerald-100/80 mb-1">
+              <span className="text-xl sm:text-3xl font-sans font-light uppercase tracking-[0.3em] text-emerald-100/80 mb-1">
                 {hackerName1}
               </span>
-              <span className="text-4xl sm:text-4xl font-serif font-medium uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
+              <span className="text-4xl sm:text-5xl font-serif font-medium uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
                 {hackerName2}
               </span>
             </h2>
