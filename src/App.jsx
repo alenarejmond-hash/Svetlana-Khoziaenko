@@ -529,11 +529,15 @@ const CreatorCard = ({ lang }) => {
   return (
     <>
       {/* ЛИЦЕВАЯ СТОРОНА */}
-      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(6,78,59,0.4)] overflow-hidden bg-[#021a12] text-white flex flex-col p-6 group-hover:shadow-[0_20px_80px_rgba(6,78,59,0.6)] transition-shadow duration-700">
+      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(2,26,22,0.6)] overflow-hidden bg-[#021a16] text-white flex flex-col p-6 group-hover:shadow-[0_20px_80px_rgba(2,26,22,0.8)] transition-shadow duration-700">
         
-        {/* === КРАСИВЫЙ ПРЕМИАЛЬНЫЙ ГРАДИЕНТ (Виден 1 секунду до проявления фото) === */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#064e3b] via-[#022c22] to-[#021a12]"></div>
-        <div className="absolute -inset-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/30 via-transparent to-transparent animate-pulse" style={{ animationDuration: '3s' }}></div>
+        {/* === ЭФФЕКТ ШЕЛКА (Виден 1 секунду до проявления фото) === */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#021a16] via-[#0a4a3e]/80 to-[#010e0b]"></div>
+        <div className="absolute -top-[10%] -left-[20%] w-[80%] h-[130%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#15816b]/40 via-[#0a4a3e]/20 to-transparent blur-[45px] transform rotate-[15deg]"></div>
+        <div className="absolute -top-[20%] left-[30%] w-[40%] h-[150%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#24ad91]/25 via-[#15816b]/10 to-transparent blur-[30px] transform rotate-[25deg]"></div>
+        <div className="absolute top-[10%] -right-[10%] w-[70%] h-[120%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#15816b]/30 via-[#0a4a3e]/10 to-transparent blur-[50px] transform -rotate-[15deg]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#010e0b]/90 via-transparent to-[#010e0b]/60"></div>
+        
         {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ГРАДИЕНТ (Лежит под фото) */}
         <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
@@ -582,18 +586,24 @@ const CreatorCard = ({ lang }) => {
       </div>
 
       {/* ОБРАТНАЯ СТОРОНА (GlassOS / Vertical Left Dock) */}
-      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(6,78,59,0.4)] overflow-hidden bg-[#01140b] flex flex-row p-4 gap-4 text-white border border-emerald-500/30" style={{ transform: 'rotateY(180deg)' }}>
+      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(2,26,22,0.6)] overflow-hidden bg-[#021a16] flex flex-row p-4 gap-4 text-white border border-[#15816b]/40" style={{ transform: 'rotateY(180deg)' }}>
         
-        {/* === ГЛУБОКИЙ ФОН С КОНТРАСТОМ (Орбиты, Аура и Контрастные пятна как на референсе) === */}
+        {/* === ГЛУБОКИЙ ШЕЛКОВЫЙ ФОН (В точности как на фото: лоск и дорогой изумруд) === */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[2.5rem] z-0">
-          {/* Орбиты */}
-          <div className="absolute -top-[20%] -left-[20%] w-[140%] aspect-square rounded-full border border-emerald-500/20 border-dashed opacity-70" style={{ animation: 'esoteric-slow-drift-1 90s linear infinite', transformOrigin: '45% 55%' }}></div>
-          <div className="absolute -bottom-[30%] -right-[30%] w-[120%] aspect-square rounded-full border-[1.5px] border-emerald-400/15 opacity-70" style={{ animation: 'esoteric-slow-drift-2 100s linear infinite', transformOrigin: '55% 45%' }}></div>
+          {/* Мягкий базовый градиент */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#021a16] via-[#0a4a3e]/80 to-[#010e0b]"></div>
           
-          {/* Яркие акцентные свечения для объема (Тихая роскошь) */}
-          <div className="absolute -top-10 -right-10 w-48 h-48 bg-emerald-500/15 blur-[40px] rounded-full mix-blend-screen"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] aspect-square rounded-full bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15)_0%,_transparent_70%)] blur-[30px]"></div>
-          <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-emerald-600/15 blur-[40px] rounded-full mix-blend-screen"></div>
+          {/* Широкая левая шелковая волна */}
+          <div className="absolute -top-[10%] -left-[20%] w-[80%] h-[130%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#15816b]/50 via-[#0a4a3e]/20 to-transparent blur-[45px] transform rotate-[15deg]"></div>
+          
+          {/* Узкий яркий блик по центру (складка шелка) */}
+          <div className="absolute -top-[20%] left-[30%] w-[40%] h-[150%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2bb09a]/30 via-[#15816b]/15 to-transparent blur-[30px] transform rotate-[25deg] animate-pulse" style={{ animationDuration: '4s' }}></div>
+          
+          {/* Правая мягкая волна */}
+          <div className="absolute top-[10%] -right-[10%] w-[70%] h-[120%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#15816b]/40 via-[#0a4a3e]/10 to-transparent blur-[50px] transform -rotate-[15deg]"></div>
+          
+          {/* Затемнение по краям для объема ткани */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#010e0b] via-transparent to-[#010e0b]/70 opacity-90"></div>
         </div>
 
         {/* === ЛЕВАЯ ПАНЕЛЬ (DOCK) === */}
