@@ -3,11 +3,12 @@ import {
   Globe, Star, UserCircle2, Diamond, Crown,
   QrCode, Share2, Copy, X, Check,
   Rocket, Code2, Play, PlusSquare, UserPlus, Gift, Compass,
-  Brain, Zap, Heart, CalendarDays, Shield, Plane
+  Brain, Zap, Heart, CalendarDays, Shield, Plane, Award
 } from 'lucide-react';
 
 // ==========================================
 // ⚙️ НАСТРОЙКИ КОНТЕНТА (МЕНЯТЬ ТЕКСТ, ФОТО И ССЫЛКИ ТОЛЬКО ЗДЕСЬ!)
+// 💡 Подсказка: Используй \n для переноса на новую строку или \n\n для нового абзаца
 // ==========================================
 const CONTENT = {
   // 🇷🇺 РУССКИЙ ЯЗЫК
@@ -45,44 +46,50 @@ const CONTENT = {
     views: {
       profile: {
         title: 'Обо мне',
-        desc: 'Меня зовут Светлана Хозяенко. Я - организатор трансформационных туров для женщин и цифровой психолог из Москвы. В своей работе я соединяю две важные вещи: путешествия и самопознание. Через цифры, я помогаю человеку лучше понять свои сильные стороны, таланты и жизненные задачи.'
+        // Пример использования \n\n для абзацев:
+        desc: 'Меня зовут Светлана Хозяенко.\nЯ - организатор трансформационных туров для женщин и цифровой психолог из Москвы.\n\nВ своей работе я соединяю две важные вещи: путешествия и самопознание. Через цифры я помогаю человеку лучше понять свои сильные стороны, таланты и жизненные задачи.'
       },
       nano: {
         title: 'Полная консультация',
-        desc: 'Полная консультация по дате рождения 2 часа Что узнаете о себе? Влияние вашего имени на жизнь и судьбу Программу вашего ума: как формируются мысли и что вас разрушает, куда вы сливаете энергию? Как использовать энергию действия для достижения целей Ваша сфера реализации: сильные качества, таланты и предназначение. Какие энергии даны вам от рождения, а какие нужно нарабатывать. В каком личном году вы сейчас и что он вам готовит.',
+        duration: '2 часа', // <-- Время вынесено отдельно
+        // Пример использования \n для красивого списка:
+        desc: 'Что узнаете о себе?\n\n• Влияние вашего имени на жизнь и судьбу\n• Программу вашего ума: как формируются мысли и куда сливаете энергию\n• Как использовать энергию действия для достижения целей\n• Ваша сфера реализации, таланты и предназначение\n• В каком личном году вы сейчас и что он вам готовит',
         priceLabel: 'СТОИМОСТЬ',
         price: '15 999 ₽',
         oldPrice: '20 000 ₽'
       },
       pro: {
         title: 'Экспресс-консультация',
-        desc: '45 минут. Подсказка направления самореализации. Вы узнаете, в какой сфере вам лучше всего раскрывать свои природные способности и таланты.',
+        duration: '45 минут',
+        desc: 'Подсказка направления самореализации.\n\nВы узнаете, в какой сфере вам лучше всего раскрывать свои природные способности и таланты.',
         priceLabel: 'СТОИМОСТЬ',
         price: '7 799 ₽',
         oldPrice: '10 000 ₽'
       },
       ultra: {
         title: 'Энергия отношений',
-        desc: 'Разбор энергии отношений, чтобы лучше понять себя и своего партнёра. Индивидуальный подход к выстраиванию гармоничного союза. 1,5 часа.',
+        duration: '1,5 часа',
+        desc: 'Разбор энергии отношений, чтобы лучше понять себя и своего партнёра.\n\nИндивидуальный подход к выстраиванию гармоничного союза.',
         priceLabel: 'СТОИМОСТЬ',
         price: '11 499 ₽',
         oldPrice: '15 000 ₽'
       },
       calendar: {
         title: 'Календарь успеха 2026',
-        desc: 'Позволяет грамотно построить стратегию на каждый день, месяц, год в целом, чтобы достичь успеха в любой сфере, легко получать желаемое и изменить свою жизнь!',
+        desc: 'Позволяет грамотно построить стратегию на каждый день, месяц и год в целом.\n\nВы сможете достичь успеха в любой сфере, легко получать желаемое и изменить свою жизнь!',
         priceLabel: 'СТОИМОСТЬ',
         price: '3 399 ₽'
       },
       mentoring: {
         title: 'Личное сопровождение',
-        desc: 'Индивидуальное сопровождение и работа с вашими запросами. Длительность: 1 месяц.',
+        duration: '1 месяц',
+        desc: 'Индивидуальное сопровождение и глубокая работа с вашими запросами.',
         priceLabel: 'СТОИМОСТЬ',
         price: '100 599 ₽'
       },
       tech: {
         title: 'Туры для женщин',
-        desc: 'Пространство для перезагрузки и внутренних трансформаций. Это не просто отдых — это время, когда женщина может остановиться, услышать себя, найти новые смыслы и вдохновение в компании единомышленников.',
+        desc: 'Пространство для перезагрузки и внутренних трансформаций.\n\nЭто не просто отдых — это время, когда женщина может остановиться, услышать себя, найти новые смыслы и вдохновение в компании единомышленников.',
         priceLabel: 'СТОИМОСТЬ',
         price: 'По запросу',
         oldPrice: ''
@@ -90,8 +97,8 @@ const CONTENT = {
       reviewsTitle: 'Отзывы',
       reviews: [
         { name: 'Любовь', date: '27.12.2025', text: '"Я благодарна Светлане за подробный разбор меня и моего партнёра. Многое стало понятно и есть над чем работать, буду выстраивать отношения на языке партнёра, при этом не забывая о своих потребностях. Благодарю"' },
-        { name: 'Екатерина', date: '29.03.2026', text: '"Профессионал своего дела! Я получила не только ответы на свои вопросы, но вдохновение, чёткое понимание своих задач. Рекомендую каждому попробовать консультацию у Светланы."' },
-        { name: 'Татьяна', date: '28.03.2026', text: '"Узнала о своих ведущих энергиях и поняла, что я иду своим путём души... Было интересно узнать цифру успеха. Очень рекомендую Светлану, она профессионал в своем деле!"' }
+        { name: 'Екатерина', date: '29.03.2026', text: '"Хочу поблагодарить Светлану за консультацию! Профессионал своего дела! Я получила не только ответы на свои вопросы, но вдохновение, чёткое понимание своих задач. Рекомендую каждому попробовать консультацию у Светланы."' },
+        { name: 'Татьяна', date: '28.03.2026', text: '"Благодарю Светлану за консультацию по цифровой психологии. Узнала о своих ведущих энергиях и поняла, что я иду своим путём души и мисии, помогаю и служу людям во благо, так как я помогающий практик. Было интересно узнать цифру успеха. Пошла применять в жизни. Очень рекомендую Светлану, она профессионал в своем деле!"' }
       ]
     },
     ui: {
@@ -149,44 +156,48 @@ const CONTENT = {
     views: {
       profile: {
         title: 'About Me',
-        desc: 'My name is Svetlana Khoziaenko. I am an organizer of transformational tours for women and a digital psychologist from Moscow. I combine travel and self-discovery to help you understand your strengths, talents, and life tasks.'
+        desc: 'My name is Svetlana Khoziaenko.\nI am an organizer of transformational tours for women and a digital psychologist from Moscow.\n\nI combine travel and self-discovery to help you understand your strengths, talents, and life tasks.'
       },
       nano: {
         title: 'Full Consultation',
-        desc: '2 hours. Influence of your name, mind programming, energy management, sphere of realization, and your personal year.',
+        duration: '2 hours',
+        desc: 'What will you learn?\n\n• Influence of your name on your destiny\n• Your mind programming and energy leaks\n• How to use action energy to achieve goals\n• Your true calling and talents\n• Your personal year forecast',
         priceLabel: 'PRICE',
         price: '15,999 RUB',
         oldPrice: '20,000 RUB'
       },
       pro: {
         title: 'Express Consultation',
-        desc: '45 minutes. A hint for your self-realization direction. Find out in which sphere it is best to reveal your abilities.',
+        duration: '45 mins',
+        desc: 'A hint for your self-realization direction.\n\nFind out in which sphere it is best to reveal your abilities and natural talents.',
         priceLabel: 'PRICE',
         price: '7,799 RUB',
         oldPrice: '10,000 RUB'
       },
       ultra: {
         title: 'Relationship Energy',
-        desc: 'Analysis of relationship energy to better understand yourself and your partner. 1.5 hours.',
+        duration: '1.5 hours',
+        desc: 'Analysis of relationship energy to better understand yourself and your partner.\n\nIndividual approach to building a harmonious union.',
         priceLabel: 'PRICE',
         price: '11,499 RUB',
         oldPrice: '15,000 RUB'
       },
       calendar: {
         title: 'Success Calendar 2026',
-        desc: 'Allows you to build a strategy for every day, month, and year to achieve success in any area, easily get what you want, and change your life!',
+        desc: 'Allows you to build a strategy for every day, month, and year.\n\nAchieve success in any area, easily get what you want, and change your life!',
         priceLabel: 'PRICE',
         price: '3,399 RUB'
       },
       mentoring: {
         title: 'Personal Mentoring',
-        desc: 'Individual mentoring and work with your requests. Duration: 1 month.',
+        duration: '1 month',
+        desc: 'Individual mentoring and deep work with your personal requests.',
         priceLabel: 'PRICE',
         price: '100,599 RUB'
       },
       tech: {
         title: 'Tours for Women',
-        desc: 'A space for rebooting and internal transformations. It is not just a vacation, it is a time to stop, hear yourself, and find new inspiration.',
+        desc: 'A space for rebooting and internal transformations.\n\nIt is not just a vacation, it is a time to stop, hear yourself, and find new inspiration.',
         priceLabel: 'PRICE',
         price: 'On request',
         oldPrice: ''
@@ -568,21 +579,27 @@ const CreatorCard = ({ lang }) => {
       </div>
 
       {/* ОБРАТНАЯ СТОРОНА (GlassOS / Vertical Left Dock) */}
-      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(6,78,59,0.4)] overflow-hidden bg-[#022c22] flex flex-row p-4 gap-4 text-white border border-emerald-400/30" style={{ transform: 'rotateY(180deg)' }}>
+      <div className="absolute inset-0 w-full h-full card-backface-hidden rounded-[2.5rem] shadow-[0_20px_50px_rgba(6,78,59,0.4)] overflow-hidden bg-[#01140b] flex flex-row p-4 gap-4 text-white border border-emerald-500/30" style={{ transform: 'rotateY(180deg)' }}>
         
-        {/* ФОН (Медленные орбиты и Аура) */}
-        <div className="absolute -top-[20%] -left-[20%] w-[160%] aspect-square rounded-full border border-emerald-500/10 border-dashed pointer-events-none" style={{ animation: 'esoteric-slow-drift-1 90s linear infinite', transformOrigin: '45% 55%' }}></div>
-        <div className="absolute -bottom-[30%] -right-[30%] w-[140%] aspect-square rounded-full border-[1.5px] border-emerald-400/10 pointer-events-none" style={{ animation: 'esoteric-slow-drift-2 100s linear infinite', transformOrigin: '55% 45%' }}></div>
-        
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] aspect-square rounded-full bg-emerald-900/20 blur-[50px] pointer-events-none"></div>
+        {/* === ГЛУБОКИЙ ФОН С КОНТРАСТОМ (Орбиты, Аура и Контрастные пятна как на референсе) === */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[2.5rem] z-0">
+          {/* Орбиты */}
+          <div className="absolute -top-[20%] -left-[20%] w-[140%] aspect-square rounded-full border border-emerald-500/20 border-dashed opacity-70" style={{ animation: 'esoteric-slow-drift-1 90s linear infinite', transformOrigin: '45% 55%' }}></div>
+          <div className="absolute -bottom-[30%] -right-[30%] w-[120%] aspect-square rounded-full border-[1.5px] border-emerald-400/15 opacity-70" style={{ animation: 'esoteric-slow-drift-2 100s linear infinite', transformOrigin: '55% 45%' }}></div>
+          
+          {/* Яркие акцентные свечения для объема (Тихая роскошь) */}
+          <div className="absolute -top-10 -right-10 w-48 h-48 bg-emerald-500/15 blur-[40px] rounded-full mix-blend-screen"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] aspect-square rounded-full bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15)_0%,_transparent_70%)] blur-[30px]"></div>
+          <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-emerald-600/15 blur-[40px] rounded-full mix-blend-screen"></div>
+        </div>
 
         {/* === ЛЕВАЯ ПАНЕЛЬ (DOCK) === */}
         <div 
-          className="relative z-50 flex flex-col items-center justify-between bg-[#022c22]/80 backdrop-blur-xl py-3 px-2 rounded-[2rem] border border-emerald-400/40 shadow-[0_10px_40px_rgba(6,78,59,0.3)] w-[3.5rem] shrink-0 no-tilt cursor-default"
+          className="relative z-50 flex flex-col items-center justify-between bg-[#021a12]/90 backdrop-blur-xl py-3 px-2 rounded-[2rem] border border-emerald-500/30 shadow-[0_10px_40px_rgba(6,78,59,0.5)] w-[3.5rem] shrink-0 no-tilt cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Световой шар */}
-          <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-emerald-500/30 rounded-full blur-[6px] shadow-[0_0_15px_rgba(16,185,129,0.5)] pointer-events-none z-0" style={{ animation: 'scan-vertical 4s ease-in-out infinite' }}></div>
+          <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-emerald-500/40 rounded-full blur-[6px] shadow-[0_0_15px_rgba(16,185,129,0.6)] pointer-events-none z-0" style={{ animation: 'scan-vertical 4s ease-in-out infinite' }}></div>
 
           <div className="flex flex-col gap-1.5 sm:gap-2 w-full items-center relative z-10">
             {[
@@ -591,18 +608,28 @@ const CreatorCard = ({ lang }) => {
               { id: 'pro', icon: Zap },
               { id: 'ultra', icon: Heart },
               { id: 'calendar', icon: CalendarDays },
-              { id: 'mentoring', icon: Shield },
+              { id: 'mentoring', icon: Award, special: 'gold' }, // Отмечено золотым стилем и новой иконкой!
               { id: 'tech', icon: Plane },
               { id: 'lead', icon: Gift },
-            ].map((item) => (
-              <button 
-                key={item.id}
-                onClick={() => setView(item.id)}
-                className={`relative p-1.5 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center w-full ${view === item.id ? 'bg-gradient-to-br from-emerald-700 to-emerald-400 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] scale-110' : 'text-emerald-400/60 hover:text-emerald-200 hover:bg-emerald-900/40'}`}
-              >
-                <item.icon className="w-4 h-4 sm:w-4 sm:h-4" />
-              </button>
-            ))}
+            ].map((item) => {
+              const isGold = item.special === 'gold';
+              const activeBg = isGold 
+                ? 'bg-gradient-to-br from-yellow-600 to-yellow-400 text-white shadow-[0_0_15px_rgba(234,179,8,0.5)] scale-110' 
+                : 'bg-gradient-to-br from-emerald-600 to-emerald-400 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)] scale-110';
+              const inactiveBg = isGold 
+                ? 'text-yellow-500/70 hover:text-yellow-300 hover:bg-yellow-900/30' 
+                : 'text-emerald-400/60 hover:text-emerald-200 hover:bg-emerald-900/40';
+
+              return (
+                <button 
+                  key={item.id}
+                  onClick={() => setView(item.id)}
+                  className={`relative p-1.5 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center w-full ${view === item.id ? activeBg : inactiveBg}`}
+                >
+                  <item.icon className="w-4 h-4 sm:w-4 sm:h-4" />
+                </button>
+              );
+            })}
           </div>
           
           <div className="w-full flex flex-col items-center gap-1.5 relative z-10 mt-1">
@@ -622,16 +649,16 @@ const CreatorCard = ({ lang }) => {
 
             {/* 1. ФИЛОСОФИЯ */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'profile' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <UserCircle2 className="w-5 h-5 text-emerald-300" />
+              <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(6,78,59,0.3)] shrink-0">
+                <UserCircle2 className="w-4 h-4 text-emerald-300" />
               </div>
-              <h3 className="text-xl font-serif font-light text-emerald-100 tracking-wider mb-2">{CONTENT[lang].views.profile.title}</h3>
-              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner">
-                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+              <h3 className="text-[1.1rem] leading-tight font-serif font-light text-emerald-100 tracking-wider mb-2.5">{CONTENT[lang].views.profile.title}</h3>
+              <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3.5 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed whitespace-pre-line">
                   {CONTENT[lang].views.profile.desc}
                 </p>
               </div>
-              <a href={CONTENT[lang].creator.websiteLink} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt mt-3 bg-gradient-to-r from-emerald-950 to-black border border-emerald-500/50 hover:border-emerald-400/60 text-emerald-200 text-[10px] uppercase tracking-[0.2em] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] w-fit mx-auto group">
+              <a href={CONTENT[lang].creator.websiteLink} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="no-tilt mt-3 bg-gradient-to-r from-emerald-950 to-black border border-emerald-500/50 hover:border-emerald-400/60 text-emerald-200 text-[10px] uppercase tracking-[0.2em] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] w-fit mx-auto group shrink-0">
                  <Globe className="w-3.5 h-3.5 text-emerald-400 group-hover:animate-pulse" />
                  {CONTENT[lang].creator.websiteText}
               </a>
@@ -639,17 +666,23 @@ const CreatorCard = ({ lang }) => {
 
             {/* 2. ТАРИФ NANO */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'nano' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Brain className="w-5 h-5 text-emerald-300" />
+              <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(6,78,59,0.3)] shrink-0">
+                <Brain className="w-4 h-4 text-emerald-300" />
               </div>
-              <div className="flex items-end gap-2 mb-2">
-                <h3 className="text-[1.1rem] font-serif font-light text-emerald-100 tracking-wider whitespace-nowrap">{CONTENT[lang].views.nano.title}</h3>
+              <div className="flex flex-col items-start gap-1 mb-2.5 shrink-0">
+                <h3 className="text-[1.05rem] leading-tight font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.nano.title}</h3>
+                {/* БЕЙДЖ ВРЕМЕНИ ТЕПЕРЬ ПОД ЗАГОЛОВКОМ */}
+                {CONTENT[lang].views.nano.duration && (
+                  <span className="text-[8px] uppercase tracking-widest text-emerald-300 bg-emerald-900/50 border border-emerald-400/30 px-2 py-0.5 rounded-md whitespace-nowrap shadow-[0_0_10px_rgba(6,78,59,0.5)]">
+                    {CONTENT[lang].views.nano.duration}
+                  </span>
+                )}
               </div>
-              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
-                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+              <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3.5 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex flex-col gap-3 min-h-0 overflow-y-auto hide-scrollbar">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed whitespace-pre-line">
                   {CONTENT[lang].views.nano.desc}
                 </p>
-                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between">
+                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
                    <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.nano.priceLabel}</span>
                    <div className="flex items-center gap-2">
                      {CONTENT[lang].views.nano.oldPrice && <span className="text-[10px] text-emerald-500/60 line-through decoration-emerald-500/50">{CONTENT[lang].views.nano.oldPrice}</span>}
@@ -661,17 +694,22 @@ const CreatorCard = ({ lang }) => {
 
             {/* 3. ТАРИФ PRO */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'pro' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Zap className="w-5 h-5 text-emerald-300" />
+              <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(6,78,59,0.3)] shrink-0">
+                <Zap className="w-4 h-4 text-emerald-300" />
               </div>
-              <div className="flex flex-col mb-2">
-                <h3 className="text-xl font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.pro.title}</h3>
+              <div className="flex flex-col items-start gap-1 mb-2.5 shrink-0">
+                <h3 className="text-[1.05rem] leading-tight font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.pro.title}</h3>
+                {CONTENT[lang].views.pro.duration && (
+                  <span className="text-[8px] uppercase tracking-widest text-emerald-300 bg-emerald-900/50 border border-emerald-400/30 px-2 py-0.5 rounded-md whitespace-nowrap shadow-[0_0_10px_rgba(6,78,59,0.5)]">
+                    {CONTENT[lang].views.pro.duration}
+                  </span>
+                )}
               </div>
-              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
-                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+              <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3.5 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex flex-col gap-3 min-h-0 overflow-y-auto hide-scrollbar">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed whitespace-pre-line">
                   {CONTENT[lang].views.pro.desc}
                 </p>
-                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between">
+                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
                    <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.pro.priceLabel}</span>
                    <div className="flex items-center gap-2">
                      {CONTENT[lang].views.pro.oldPrice && <span className="text-[10px] text-emerald-500/60 line-through decoration-emerald-500/50">{CONTENT[lang].views.pro.oldPrice}</span>}
@@ -683,17 +721,22 @@ const CreatorCard = ({ lang }) => {
 
             {/* 4. ТАРИФ ULTRA */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'ultra' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Heart className="w-5 h-5 text-emerald-300" />
+              <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(6,78,59,0.3)] shrink-0">
+                <Heart className="w-4 h-4 text-emerald-300" />
               </div>
-              <div className="flex flex-col mb-2">
-                <h3 className="text-[1.15rem] whitespace-nowrap font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.ultra.title}</h3>
+              <div className="flex flex-col items-start gap-1 mb-2.5 shrink-0">
+                <h3 className="text-[1.05rem] leading-tight font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.ultra.title}</h3>
+                {CONTENT[lang].views.ultra.duration && (
+                  <span className="text-[8px] uppercase tracking-widest text-emerald-300 bg-emerald-900/50 border border-emerald-400/30 px-2 py-0.5 rounded-md whitespace-nowrap shadow-[0_0_10px_rgba(6,78,59,0.5)]">
+                    {CONTENT[lang].views.ultra.duration}
+                  </span>
+                )}
               </div>
-              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
-                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+              <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3.5 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex flex-col gap-3 min-h-0 overflow-y-auto hide-scrollbar">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed whitespace-pre-line">
                   {CONTENT[lang].views.ultra.desc}
                 </p>
-                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between">
+                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
                    <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.ultra.priceLabel}</span>
                    <div className="flex items-center gap-2">
                      {CONTENT[lang].views.ultra.oldPrice && <span className="text-[10px] text-emerald-500/60 line-through decoration-emerald-500/50">{CONTENT[lang].views.ultra.oldPrice}</span>}
@@ -705,17 +748,22 @@ const CreatorCard = ({ lang }) => {
 
             {/* 5. КАЛЕНДАРЬ УСПЕХА */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'calendar' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <CalendarDays className="w-5 h-5 text-emerald-300" />
+              <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(6,78,59,0.3)] shrink-0">
+                <CalendarDays className="w-4 h-4 text-emerald-300" />
               </div>
-              <div className="flex flex-col mb-2">
-                <h3 className="text-[1.1rem] whitespace-nowrap font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.calendar.title}</h3>
+              <div className="flex flex-col items-start gap-1 mb-2.5 shrink-0">
+                <h3 className="text-[1.05rem] leading-tight font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.calendar.title}</h3>
+                {CONTENT[lang].views.calendar.duration && (
+                  <span className="text-[8px] uppercase tracking-widest text-emerald-300 bg-emerald-900/50 border border-emerald-400/30 px-2 py-0.5 rounded-md whitespace-nowrap shadow-[0_0_10px_rgba(6,78,59,0.5)]">
+                    {CONTENT[lang].views.calendar.duration}
+                  </span>
+                )}
               </div>
-              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
-                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+              <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3.5 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex flex-col gap-3 min-h-0 overflow-y-auto hide-scrollbar">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed whitespace-pre-line">
                   {CONTENT[lang].views.calendar.desc}
                 </p>
-                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between">
+                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
                    <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.calendar.priceLabel}</span>
                    <div className="flex items-center gap-2">
                      <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.calendar.price}</span>
@@ -724,22 +772,27 @@ const CreatorCard = ({ lang }) => {
               </div>
             </div>
 
-            {/* 6. СОПРОВОЖДЕНИЕ */}
+            {/* 6. СОПРОВОЖДЕНИЕ (ЗОЛОТАЯ VIP ВЕРСИЯ) */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'mentoring' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Shield className="w-5 h-5 text-emerald-300" />
+              <div className="w-8 h-8 rounded-full bg-yellow-900/20 border border-yellow-500/40 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(234,179,8,0.2)] shrink-0">
+                <Award className="w-4 h-4 text-yellow-400" />
               </div>
-              <div className="flex flex-col mb-2">
-                <h3 className="text-[1.05rem] whitespace-nowrap font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.mentoring.title}</h3>
+              <div className="flex flex-col items-start gap-1 mb-2.5 shrink-0">
+                <h3 className="text-[1.05rem] leading-tight font-serif font-light text-yellow-100 tracking-wider">{CONTENT[lang].views.mentoring.title}</h3>
+                {CONTENT[lang].views.mentoring.duration && (
+                  <span className="text-[8px] uppercase tracking-widest text-yellow-300 bg-yellow-900/40 border border-yellow-500/40 px-2 py-0.5 rounded-md whitespace-nowrap shadow-[0_0_10px_rgba(234,179,8,0.3)]">
+                    {CONTENT[lang].views.mentoring.duration}
+                  </span>
+                )}
               </div>
-              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
-                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+              <div className="bg-gradient-to-br from-black/60 to-yellow-950/30 backdrop-blur-md p-3.5 rounded-2xl border border-yellow-500/30 shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex flex-col gap-3 min-h-0 overflow-y-auto hide-scrollbar">
+                <p className="font-serif text-[11px] text-yellow-100/80 leading-relaxed whitespace-pre-line">
                   {CONTENT[lang].views.mentoring.desc}
                 </p>
-                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between">
-                   <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.mentoring.priceLabel}</span>
+                <div className="pt-2.5 border-t border-yellow-500/20 flex items-center justify-between shrink-0">
+                   <span className="text-[9px] text-yellow-200/50 uppercase tracking-widest">{CONTENT[lang].views.mentoring.priceLabel}</span>
                    <div className="flex items-center gap-2">
-                     <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.mentoring.price}</span>
+                     <span className="text-sm font-bold text-yellow-400 drop-shadow-[0_0_8px_rgba(234,179,8,0.4)]">{CONTENT[lang].views.mentoring.price}</span>
                    </div>
                 </div>
               </div>
@@ -747,15 +800,22 @@ const CreatorCard = ({ lang }) => {
 
             {/* 7. ТУРЫ ДЛЯ ЖЕНЩИН */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'tech' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Plane className="w-5 h-5 text-emerald-300" />
+              <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(6,78,59,0.3)] shrink-0">
+                <Plane className="w-4 h-4 text-emerald-300" />
               </div>
-              <h3 className="text-xl font-serif font-light text-emerald-100 tracking-wider mb-2">{CONTENT[lang].views.tech.title}</h3>
-              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner flex flex-col gap-3">
-                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+              <div className="flex flex-col items-start gap-1 mb-2.5 shrink-0">
+                <h3 className="text-[1.05rem] leading-tight font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.tech.title}</h3>
+                {CONTENT[lang].views.tech.duration && (
+                  <span className="text-[8px] uppercase tracking-widest text-emerald-300 bg-emerald-900/50 border border-emerald-400/30 px-2 py-0.5 rounded-md whitespace-nowrap shadow-[0_0_10px_rgba(6,78,59,0.5)]">
+                    {CONTENT[lang].views.tech.duration}
+                  </span>
+                )}
+              </div>
+              <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3.5 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] flex flex-col gap-3 min-h-0 overflow-y-auto hide-scrollbar">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed whitespace-pre-line">
                   {CONTENT[lang].views.tech.desc}
                 </p>
-                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between">
+                <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
                    <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.tech.priceLabel}</span>
                    <div className="flex items-center gap-2">
                      <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.tech.price}</span>
@@ -766,18 +826,18 @@ const CreatorCard = ({ lang }) => {
 
             {/* 8. ЛИД-МАГНИТ (SECRET OFFER) */}
             <div className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-in-out ${view === 'lead' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
-              <div className="w-10 h-10 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-3 shadow-[0_0_15px_rgba(6,78,59,0.2)]">
-                <Gift className="w-5 h-5 text-emerald-300 animate-bounce" />
+              <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(6,78,59,0.3)] shrink-0">
+                <Gift className="w-4 h-4 text-emerald-300 animate-bounce" />
               </div>
-              <h3 className="text-xl font-serif font-light text-emerald-100 tracking-wider mb-2">{CONTENT[lang].leadMagnet.title}</h3>
-              <div className="bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-emerald-400/30 shadow-inner mb-4">
-                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed">
+              <h3 className="text-[1.1rem] leading-tight font-serif font-light text-emerald-100 tracking-wider mb-2.5">{CONTENT[lang].leadMagnet.title}</h3>
+              <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3.5 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] mb-4">
+                <p className="font-serif text-[11px] text-emerald-100/80 leading-relaxed whitespace-pre-line">
                   {CONTENT[lang].leadMagnet.description}
                 </p>
               </div>
               <button 
                 onClick={handlePromoClick} 
-                className="no-tilt w-full bg-gradient-to-r from-emerald-700 to-emerald-500 hover:from-emerald-600 hover:to-emerald-400 text-white text-[10px] font-bold uppercase tracking-widest py-3.5 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] border border-emerald-400/50 group"
+                className="no-tilt w-full bg-gradient-to-r from-emerald-700 to-emerald-500 hover:from-emerald-600 hover:to-emerald-400 text-white text-[10px] font-bold uppercase tracking-widest py-3.5 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] border border-emerald-400/50 group shrink-0"
               >
                 <Crown className="w-3.5 h-3.5 mr-2 text-emerald-200 group-hover:scale-110 transition-transform" />
                 {CONTENT[lang].leadMagnet.buttonText}
@@ -787,16 +847,16 @@ const CreatorCard = ({ lang }) => {
             {/* 9. ОТЗЫВЫ */}
             <div className={`absolute inset-0 flex flex-col pt-2 transition-all duration-500 ease-in-out ${view === 'reviews' ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}`}>
               <div className="flex items-center gap-3 mb-3 shrink-0">
-                <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center shadow-[0_0_15px_rgba(6,78,59,0.2)]">
+                <div className="w-8 h-8 rounded-full bg-emerald-900/30 border border-emerald-400/40 flex items-center justify-center shadow-[0_0_15px_rgba(6,78,59,0.3)]">
                   <Star className="w-4 h-4 text-emerald-300" />
                 </div>
-                <h3 className="text-lg font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.reviewsTitle}</h3>
+                <h3 className="text-[1.1rem] leading-tight font-serif font-light text-emerald-100 tracking-wider">{CONTENT[lang].views.reviewsTitle}</h3>
               </div>
               
               <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col gap-2.5 pb-10 pr-1 mask-image-bottom">
                 
                 {/* Отзыв 1: Виктория */}
-                <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-emerald-400/30 shadow-inner relative shrink-0">
+                <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] relative shrink-0">
                   <div className="flex justify-between items-center mb-1.5 px-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] text-emerald-200/90 font-medium">{CONTENT[lang].views.reviews[0].name}</span>
@@ -810,13 +870,13 @@ const CreatorCard = ({ lang }) => {
                       <Star className="w-2.5 h-2.5 fill-emerald-400 text-emerald-400" />
                     </div>
                   </div>
-                  <p className="font-serif text-[10px] text-emerald-100/80 leading-relaxed italic px-1">
+                  <p className="font-serif text-[10px] text-emerald-100/80 leading-relaxed italic px-1 whitespace-pre-line">
                     {CONTENT[lang].views.reviews[0].text}
                   </p>
                 </div>
 
                 {/* Отзыв 2: Алексей */}
-                <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-emerald-400/30 shadow-inner relative shrink-0">
+                <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] relative shrink-0">
                   <div className="flex justify-between items-center mb-1.5 px-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] text-emerald-200/90 font-medium">{CONTENT[lang].views.reviews[1].name}</span>
@@ -830,13 +890,13 @@ const CreatorCard = ({ lang }) => {
                       <Star className="w-2.5 h-2.5 fill-emerald-400 text-emerald-400" />
                     </div>
                   </div>
-                  <p className="font-serif text-[10px] text-emerald-100/80 leading-relaxed italic px-1">
+                  <p className="font-serif text-[10px] text-emerald-100/80 leading-relaxed italic px-1 whitespace-pre-line">
                     {CONTENT[lang].views.reviews[1].text}
                   </p>
                 </div>
 
                 {/* Отзыв 3: Мария */}
-                <div className="bg-black/40 backdrop-blur-sm p-3 rounded-2xl border border-emerald-400/30 shadow-inner relative shrink-0">
+                <div className="bg-gradient-to-br from-black/60 to-emerald-950/40 backdrop-blur-md p-3 rounded-2xl border border-emerald-500/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] relative shrink-0">
                   <div className="flex justify-between items-center mb-1.5 px-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] text-emerald-200/90 font-medium">{CONTENT[lang].views.reviews[2].name}</span>
@@ -850,7 +910,7 @@ const CreatorCard = ({ lang }) => {
                       <Star className="w-2.5 h-2.5 fill-emerald-400 text-emerald-400" />
                     </div>
                   </div>
-                  <p className="font-serif text-[10px] text-emerald-100/80 leading-relaxed italic px-1">
+                  <p className="font-serif text-[10px] text-emerald-100/80 leading-relaxed italic px-1 whitespace-pre-line">
                     {CONTENT[lang].views.reviews[2].text}
                   </p>
                 </div>
@@ -862,10 +922,10 @@ const CreatorCard = ({ lang }) => {
 
           {/* Кнопка записи (Главная кнопка) ПРАВКА ПЕРЕНОСА И РАЗМЕРА */}
           <div 
-            className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2"
+            className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2 shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#064e3b] to-black backdrop-blur-md text-emerald-100 font-serif text-[7.5px] sm:text-[9px] uppercase tracking-[0.05em] sm:tracking-[0.1em] py-4 px-2 rounded-2xl flex items-center justify-center gap-1.5 hover:from-[#047857] transition-all shadow-[0_0_25px_rgba(6,78,59,0.3)] border border-emerald-400/50 group active:scale-95 whitespace-nowrap">
+            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#064e3b] to-black backdrop-blur-md text-emerald-100 font-serif text-[7.5px] sm:text-[9px] uppercase tracking-[0.05em] sm:tracking-[0.1em] py-4 px-2 rounded-2xl flex items-center justify-center gap-1.5 hover:from-[#047857] transition-all shadow-[0_0_25px_rgba(6,78,59,0.3)] border border-emerald-500/40 group active:scale-95 whitespace-nowrap">
               <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
               {CONTENT[lang].creator.actionText} &rarr;
             </a>
@@ -1123,7 +1183,7 @@ const App = () => {
 
   // Функция для получения цвета мобильного свечения в зависимости от шаблона
   const getGlowColor = () => {
-    return 'rgba(16,185,129,0.6)'; // Изумрудный
+    return 'rgba(16,185,129,0.8)'; // Изумрудный насыщенный
   };
 
   // Получение индивидуальной темы для воздушного модального окна
