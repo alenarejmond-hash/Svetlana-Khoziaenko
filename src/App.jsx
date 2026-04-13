@@ -538,8 +538,7 @@ const CreatorCard = ({ lang }) => {
         <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="emerald" startBurn={isNameRevealed} />
 
         {/* ЗАТЕМНЕНИЕ ПОВЕРХ ФОТО ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА */}
-        <div className="absolute inset-0 bg-black/30 pointer-events-none z-0 rounded-[2.5rem]"></div>
-        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-[#01140b] via-[#01140b]/80 to-transparent pointer-events-none z-0 rounded-[2.5rem]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#01140b] via-[#01140b]/70 via-40% to-transparent pointer-events-none z-0 rounded-[2.5rem]"></div>
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
