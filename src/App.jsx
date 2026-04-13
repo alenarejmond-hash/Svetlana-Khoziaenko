@@ -439,7 +439,7 @@ const globalStyles = `
 // ==========================================
 const HACKER_CHARS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
-const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "emerald", startBurn = true }) => {
+const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "emerald", startBurn = true, children }) => {
   // Цветовые темы огня (c1 - пепел/край, c2 - основной огонь, c3 - яркая вспышка)
   const themes = {
     default: { c1: 'rgba(220, 38, 38, 0.9)', c2: 'rgba(250, 150, 0, 1)', c3: 'rgba(255, 220, 50, 0.8)' },
@@ -454,7 +454,10 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
       <div 
         className={`absolute inset-0 bg-cover bg-center rounded-[2.5rem] ${imgClassName} ${startBurn ? 'smooth-mask-wipe' : 'opacity-0'}`}
         style={{ backgroundImage: `url(${src})` }}
-      />
+      >
+        {/* Затемнение теперь внутри фото, чтобы огонь был поверх него! */}
+        {children}
+      </div>
       {/* 2. Эффект линии огня и тлеющего края с кастомными цветами */}
       {startBurn && (
         <div 
@@ -531,14 +534,14 @@ const CreatorCard = ({ lang }) => {
         {/* === КРАСИВЫЙ ПРЕМИАЛЬНЫЙ ГРАДИЕНТ (Виден 1 секунду до проявления фото) === */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#064e3b] via-[#022c22] to-[#021a12]"></div>
         <div className="absolute -inset-1/2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/30 via-transparent to-transparent animate-pulse" style={{ animationDuration: '3s' }}></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-500/25 via-transparent to-transparent mix-blend-screen"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-900/40 via-transparent to-transparent"></div>
+        {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ГРАДИЕНТ (Лежит под фото) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Изумрудный огонь) ПОВЕРХ ВСЕХ СЛОЕВ */}
-        <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="emerald" startBurn={isNameRevealed} />
-
-        {/* ЗАТЕМНЕНИЕ ПОВЕРХ ФОТО ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА (ТОЛЬКО ВНИЗУ) */}
-        <div className="absolute bottom-0 inset-x-0 h-[65%] bg-gradient-to-t from-[#01140b] via-[#01140b]/80 to-transparent pointer-events-none z-0 rounded-b-[2.5rem]"></div>
+        <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="emerald" startBurn={isNameRevealed}>
+          {/* ЗАТЕМНЕНИЕ ПОВЕРХ ФОТО ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА (ТОЛЬКО ВНИЗУ) */}
+          <div className="absolute bottom-0 inset-x-0 h-[65%] bg-gradient-to-t from-[#01140b] via-[#01140b]/80 to-transparent pointer-events-none z-0 rounded-b-[2.5rem]"></div>
+        </BurnRevealImage>
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
