@@ -554,10 +554,10 @@ const CreatorCard = ({ lang }) => {
 
           <div className="text-center pb-2">
             <h2 className="flex flex-col items-center justify-center mb-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              <span className="text-xl sm:text-3xl font-sans font-light uppercase tracking-[0.3em] text-emerald-100/80 mb-1">
+              <span className="text-2xl sm:text-3xl font-sans font-light uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
                 {hackerName1}
               </span>
-              <span className="text-4xl sm:text-5xl font-serif font-medium uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
+              <span className="text-2xl sm:text-3xl font-sans font-light uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
                 {hackerName2}
               </span>
             </h2>
@@ -686,10 +686,9 @@ const CreatorCard = ({ lang }) => {
                   {CONTENT[lang].views.nano.desc}
                 </p>
                 <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
-                   <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.nano.priceLabel}</span>
-                   <div className="flex items-center gap-2">
-                     {CONTENT[lang].views.nano.oldPrice && <span className="text-[10px] text-emerald-500/60 line-through decoration-emerald-500/50">{CONTENT[lang].views.nano.oldPrice}</span>}
-                     <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.nano.price}</span>
+                   <span className="text-[8px] sm:text-[9px] text-emerald-200/50 uppercase tracking-normal sm:tracking-widest shrink-0 mr-1">{CONTENT[lang].views.nano.priceLabel}</span>
+                   <div className="flex items-center gap-2 overflow-hidden">
+                     <span className="text-[10px] sm:text-xs font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] whitespace-nowrap">{CONTENT[lang].views.nano.price}</span>
                    </div>
                 </div>
               </div>
@@ -713,10 +712,9 @@ const CreatorCard = ({ lang }) => {
                   {CONTENT[lang].views.pro.desc}
                 </p>
                 <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
-                   <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.pro.priceLabel}</span>
-                   <div className="flex items-center gap-2">
-                     {CONTENT[lang].views.pro.oldPrice && <span className="text-[10px] text-emerald-500/60 line-through decoration-emerald-500/50">{CONTENT[lang].views.pro.oldPrice}</span>}
-                     <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.pro.price}</span>
+                   <span className="text-[8px] sm:text-[9px] text-emerald-200/50 uppercase tracking-normal sm:tracking-widest shrink-0 mr-1">{CONTENT[lang].views.pro.priceLabel}</span>
+                   <div className="flex items-center gap-2 overflow-hidden">
+                     <span className="text-[10px] sm:text-xs font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] whitespace-nowrap">{CONTENT[lang].views.pro.price}</span>
                    </div>
                 </div>
               </div>
@@ -740,10 +738,9 @@ const CreatorCard = ({ lang }) => {
                   {CONTENT[lang].views.ultra.desc}
                 </p>
                 <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
-                   <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.ultra.priceLabel}</span>
-                   <div className="flex items-center gap-2">
-                     {CONTENT[lang].views.ultra.oldPrice && <span className="text-[10px] text-emerald-500/60 line-through decoration-emerald-500/50">{CONTENT[lang].views.ultra.oldPrice}</span>}
-                     <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.ultra.price}</span>
+                   <span className="text-[8px] sm:text-[9px] text-emerald-200/50 uppercase tracking-normal sm:tracking-widest shrink-0 mr-1">{CONTENT[lang].views.ultra.priceLabel}</span>
+                   <div className="flex items-center gap-2 overflow-hidden">
+                     <span className="text-[10px] sm:text-xs font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] whitespace-nowrap">{CONTENT[lang].views.ultra.price}</span>
                    </div>
                 </div>
               </div>
@@ -767,9 +764,9 @@ const CreatorCard = ({ lang }) => {
                   {CONTENT[lang].views.calendar.desc}
                 </p>
                 <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
-                   <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.calendar.priceLabel}</span>
-                   <div className="flex items-center gap-2">
-                     <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.calendar.price}</span>
+                   <span className="text-[8px] sm:text-[9px] text-emerald-200/50 uppercase tracking-normal sm:tracking-widest shrink-0 mr-1">{CONTENT[lang].views.calendar.priceLabel}</span>
+                   <div className="flex items-center gap-2 overflow-hidden">
+                     <span className="text-[10px] sm:text-xs font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] whitespace-nowrap">{CONTENT[lang].views.calendar.price}</span>
                    </div>
                 </div>
               </div>
@@ -793,9 +790,9 @@ const CreatorCard = ({ lang }) => {
                   {CONTENT[lang].views.mentoring.desc}
                 </p>
                 <div className="pt-2.5 border-t border-yellow-500/20 flex items-center justify-between shrink-0">
-                   <span className="text-[9px] text-yellow-200/50 uppercase tracking-widest">{CONTENT[lang].views.mentoring.priceLabel}</span>
-                   <div className="flex items-center gap-2">
-                     <span className="text-sm font-bold text-yellow-400 drop-shadow-[0_0_8px_rgba(234,179,8,0.4)]">{CONTENT[lang].views.mentoring.price}</span>
+                   <span className="text-[8px] sm:text-[9px] text-yellow-200/50 uppercase tracking-normal sm:tracking-widest shrink-0 mr-1">{CONTENT[lang].views.mentoring.priceLabel}</span>
+                   <div className="flex items-center gap-2 overflow-hidden">
+                     <span className="text-[10px] sm:text-xs font-bold text-yellow-400 drop-shadow-[0_0_8px_rgba(234,179,8,0.4)] whitespace-nowrap">{CONTENT[lang].views.mentoring.price}</span>
                    </div>
                 </div>
               </div>
@@ -819,9 +816,9 @@ const CreatorCard = ({ lang }) => {
                   {CONTENT[lang].views.tech.desc}
                 </p>
                 <div className="pt-2.5 border-t border-emerald-500/20 flex items-center justify-between shrink-0">
-                   <span className="text-[9px] text-emerald-200/50 uppercase tracking-widest">{CONTENT[lang].views.tech.priceLabel}</span>
-                   <div className="flex items-center gap-2">
-                     <span className="text-sm font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">{CONTENT[lang].views.tech.price}</span>
+                   <span className="text-[8px] sm:text-[9px] text-emerald-200/50 uppercase tracking-normal sm:tracking-widest shrink-0 mr-1">{CONTENT[lang].views.tech.priceLabel}</span>
+                   <div className="flex items-center gap-2 overflow-hidden">
+                     <span className="text-[10px] sm:text-xs font-bold text-emerald-300 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)] whitespace-nowrap">{CONTENT[lang].views.tech.price}</span>
                    </div>
                 </div>
               </div>
@@ -840,10 +837,10 @@ const CreatorCard = ({ lang }) => {
               </div>
               <button 
                 onClick={handlePromoClick} 
-                className="no-tilt w-full bg-gradient-to-r from-emerald-700 to-emerald-500 hover:from-emerald-600 hover:to-emerald-400 text-white text-[10px] font-bold uppercase tracking-widest py-3.5 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] border border-emerald-400/50 group shrink-0"
+                className="no-tilt w-full bg-gradient-to-r from-emerald-700 to-emerald-500 hover:from-emerald-600 hover:to-emerald-400 text-white text-[8px] sm:text-[10px] font-bold uppercase tracking-normal sm:tracking-widest py-3.5 px-2 rounded-xl flex items-center justify-center transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] border border-emerald-400/50 group shrink-0 whitespace-nowrap"
               >
-                <Crown className="w-3.5 h-3.5 mr-2 text-emerald-200 group-hover:scale-110 transition-transform" />
-                {CONTENT[lang].leadMagnet.buttonText}
+                <Crown className="w-3.5 h-3.5 mr-1.5 sm:mr-2 text-emerald-200 group-hover:scale-110 transition-transform shrink-0" />
+                <span className="truncate">{CONTENT[lang].leadMagnet.buttonText}</span>
               </button>
             </div>
 
@@ -923,16 +920,18 @@ const CreatorCard = ({ lang }) => {
 
           </div>
 
-          {/* Кнопка записи (Главная кнопка) ПРАВКА ПЕРЕНОСА И РАЗМЕРА */}
-          <div 
-            className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2 shrink-0"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#064e3b] to-black backdrop-blur-md text-emerald-100 font-serif text-[7.5px] sm:text-[9px] uppercase tracking-[0.05em] sm:tracking-[0.1em] py-4 px-2 rounded-2xl flex items-center justify-center gap-1.5 hover:from-[#047857] transition-all shadow-[0_0_25px_rgba(6,78,59,0.3)] border border-emerald-500/40 group active:scale-95 whitespace-nowrap">
-              <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
-              {CONTENT[lang].creator.actionText} &rarr;
-            </a>
-          </div>
+          {/* Кнопка записи (Главная кнопка) АДАПТАЦИЯ ДЛЯ УЗКИХ ЭКРАНОВ */}
+          {view !== 'lead' && (
+            <div 
+              className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2 shrink-0"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#064e3b] to-black backdrop-blur-md text-emerald-100 font-serif text-[7px] sm:text-[9px] uppercase tracking-normal sm:tracking-[0.1em] py-3.5 sm:py-4 px-1.5 sm:px-2 rounded-2xl flex items-center justify-center gap-1 sm:gap-1.5 hover:from-[#047857] transition-all shadow-[0_0_25px_rgba(6,78,59,0.3)] border border-emerald-500/40 group active:scale-95 whitespace-nowrap overflow-hidden">
+                <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
+                <span className="truncate">{CONTENT[lang].creator.actionText} &rarr;</span>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </>
