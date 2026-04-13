@@ -534,11 +534,12 @@ const CreatorCard = ({ lang }) => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-500/25 via-transparent to-transparent mix-blend-screen"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-900/40 via-transparent to-transparent"></div>
 
-        {/* ТЕМНЫЙ ПОЛУПРОЗРАЧНЫЙ ГРАДИЕНТ (Лежит под фото) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
-
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Изумрудный огонь) ПОВЕРХ ВСЕХ СЛОЕВ */}
         <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="emerald" startBurn={isNameRevealed} />
+
+        {/* ЗАТЕМНЕНИЕ ПОВЕРХ ФОТО ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА */}
+        <div className="absolute inset-0 bg-black/30 pointer-events-none z-0 rounded-[2.5rem]"></div>
+        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-[#01140b] via-[#01140b]/80 to-transparent pointer-events-none z-0 rounded-[2.5rem]"></div>
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
@@ -601,7 +602,7 @@ const CreatorCard = ({ lang }) => {
           {/* Световой шар */}
           <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-emerald-500/40 rounded-full blur-[6px] shadow-[0_0_15px_rgba(16,185,129,0.6)] pointer-events-none z-0" style={{ animation: 'scan-vertical 4s ease-in-out infinite' }}></div>
 
-          <div className="flex flex-col gap-1.5 sm:gap-2 w-full items-center relative z-10">
+          <div className="flex flex-col gap-2 sm:gap-2.5 w-full items-center relative z-10">
             {[
               { id: 'profile', icon: UserCircle2 },
               { id: 'nano', icon: Brain },
@@ -624,21 +625,21 @@ const CreatorCard = ({ lang }) => {
                 <button 
                   key={item.id}
                   onClick={() => setView(item.id)}
-                  className={`relative p-1.5 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center w-full ${view === item.id ? activeBg : inactiveBg}`}
+                  className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-300 flex items-center justify-center w-full ${view === item.id ? activeBg : inactiveBg}`}
                 >
-                  <item.icon className="w-4 h-4 sm:w-4 sm:h-4" />
+                  <item.icon className="w-5 h-5" />
                 </button>
               );
             })}
           </div>
           
-          <div className="w-full flex flex-col items-center gap-1.5 relative z-10 mt-1">
+          <div className="w-full flex flex-col items-center gap-2 relative z-10 mt-1">
             <div className="w-5 h-[1px] bg-emerald-900/60"></div>
             <button 
               onClick={() => setView('reviews')}
-              className={`p-1.5 sm:p-2 w-full rounded-full transition-all duration-300 flex items-center justify-center ${view === 'reviews' ? 'bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.6)] scale-110' : 'text-emerald-400/60 hover:text-emerald-200 hover:bg-emerald-900/40'}`}
+              className={`p-2 sm:p-2.5 w-full rounded-full transition-all duration-300 flex items-center justify-center ${view === 'reviews' ? 'bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.6)] scale-110' : 'text-emerald-400/60 hover:text-emerald-200 hover:bg-emerald-900/40'}`}
             >
-              <Star className="w-4 h-4" />
+              <Star className="w-5 h-5" />
             </button>
           </div>
         </div>
