@@ -1034,7 +1034,7 @@ const App = () => {
     if (typeof window !== 'undefined') {
       const manifest = {
         name: `${CONTENT[lang].creator.name1} ${CONTENT[lang].creator.name2} | ${CONTENT[lang].creator.role}`,
-        short_name: "Елена Сотникова",
+        short_name: "Светлана Хозяенко",
         start_url: window.location.pathname,
         display: "standalone",
         background_color: "#0a0a0a",
