@@ -537,8 +537,8 @@ const CreatorCard = ({ lang }) => {
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Изумрудный огонь) ПОВЕРХ ВСЕХ СЛОЕВ */}
         <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="emerald" startBurn={isNameRevealed} />
 
-        {/* ЗАТЕМНЕНИЕ ПОВЕРХ ФОТО ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#01140b] via-[#01140b]/70 via-40% to-transparent pointer-events-none z-0 rounded-[2.5rem]"></div>
+        {/* ЗАТЕМНЕНИЕ ПОВЕРХ ФОТО ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА (ТОЛЬКО ВНИЗУ) */}
+        <div className="absolute bottom-0 inset-x-0 h-[65%] bg-gradient-to-t from-[#01140b] via-[#01140b]/80 to-transparent pointer-events-none z-0 rounded-b-[2.5rem]"></div>
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start">
