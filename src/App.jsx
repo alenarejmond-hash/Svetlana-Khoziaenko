@@ -14,7 +14,7 @@ const CONTENT = {
   // 🇷🇺 РУССКИЙ ЯЗЫК
   ru: {
     creator: {
-      bgImage: '/bg-creator.jpg',
+      bgImage: 'bg-creator.jpg',
       avatar: '/avatar-creator.jpg', 
       audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл (можно сделать разные для RU и EN)
       badge: 'TRANSFORMATION',
