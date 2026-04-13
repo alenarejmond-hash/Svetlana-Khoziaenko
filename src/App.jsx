@@ -478,8 +478,7 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // ==========================================
 
 // 0. БОСС / СОЗДАТЕЛЬ 
-const CreatorCard = ({ lang }) => {
-  const [view, setView] = useState('profile');
+const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) => {
   const [isNameRevealed, setIsNameRevealed] = useState(false);
   const [hackerName1, setHackerName1] = useState(() => CONTENT[lang].creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
   const [hackerName2, setHackerName2] = useState(() => CONTENT[lang].creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
@@ -657,7 +656,27 @@ const CreatorCard = ({ lang }) => {
         </div>
 
         {/* === ПРАВАЯ ЧАСТЬ (КОНТЕНТ) === */}
-        <div className="relative z-10 flex-1 flex flex-col h-full overflow-hidden">
+        <div 
+          className="relative z-10 flex-1 flex flex-col h-full overflow-hidden"
+          onScrollCapture={() => {
+            if (isScrollingRef) isScrollingRef.current = true;
+            if (scrollTimeoutRef) {
+              clearTimeout(scrollTimeoutRef.current);
+              scrollTimeoutRef.current = setTimeout(() => {
+                isScrollingRef.current = false;
+              }, 250);
+            }
+          }}
+          onTouchMove={() => {
+            if (isScrollingRef) isScrollingRef.current = true;
+            if (scrollTimeoutRef) {
+              clearTimeout(scrollTimeoutRef.current);
+              scrollTimeoutRef.current = setTimeout(() => {
+                isScrollingRef.current = false;
+              }, 250);
+            }
+          }}
+        >
           <div className="relative flex-1 w-full overflow-hidden">
 
             {/* 1. ФИЛОСОФИЯ */}
@@ -954,6 +973,7 @@ const CreatorCard = ({ lang }) => {
 
 const App = () => {
   const [lang, setLang] = useState('ru'); // Состояние текущего языка
+  const [view, setView] = useState('profile'); // Состояние текущей вкладки (поднято из CreatorCard)
   const [isFlipped, setIsFlipped] = useState(false);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
@@ -968,6 +988,8 @@ const App = () => {
   const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
   const audioRef = useRef(null); // Надежный реф для HTML5 аудио
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
+  const isScrollingRef = useRef(false); // Реф для блокировки переворота во время скролла
+  const scrollTimeoutRef = useRef(null); // Реф таймера для сброса скролла
 
   // Инициализация Яндекс.Метрики
   useEffect(() => {
@@ -1083,6 +1105,13 @@ const App = () => {
     // Блокируем наклон, если карточка прямо сейчас переворачивается
     if (isFlippingRef.current || !cardRef.current) return;
     
+    // БЛОКИРОВКА 3D ДВИЖЕНИЯ В РАЗДЕЛЕ "ПОДАРОК"
+    if (view === 'lead') {
+      setRotate({ x: 0, y: 0 });
+      setGlare(prev => ({ ...prev, opacity: 0 }));
+      return;
+    }
+    
     // Исключение для интерактивных зон (чтобы удобно было читать и нажимать)
     if (e.target.closest('.no-tilt')) {
       setRotate({ x: 0, y: 0 });
@@ -1159,6 +1188,9 @@ const App = () => {
   };
 
   const handleFlip = () => {
+    // ЕСЛИ ЧЕЛОВЕК СКРОЛЛИТ ОТЗЫВЫ ИЛИ ТЕКСТ — БЛОКИРУЕМ ПЕРЕВОРОТ!
+    if (isScrollingRef.current) return;
+
     // Звук переворота (саунд-дизайн)
     playFlipSound();
     
@@ -1405,8 +1437,14 @@ const App = () => {
                 style={{ transform: 'rotateY(180deg)', boxShadow: `0 0 60px ${getGlowColor()}` }} 
               />
 
-              {/* ПЕРЕДАЕМ ВЫБРАННЫЙ ЯЗЫК В КАРТОЧКУ */}
-              <CreatorCard lang={lang} />
+              {/* ПЕРЕДАЕМ ВЫБРАННЫЙ ЯЗЫК, СОСТОЯНИЕ И РЕФЫ В КАРТОЧКУ */}
+              <CreatorCard 
+                lang={lang} 
+                view={view}
+                setView={setView}
+                isScrollingRef={isScrollingRef}
+                scrollTimeoutRef={scrollTimeoutRef}
+              />
 
               {/* === ЭФФЕКТЫ СВЕЧЕНИЯ И БЛИКОВ (ЖИДКОЕ СТЕКЛО) === */}
 
