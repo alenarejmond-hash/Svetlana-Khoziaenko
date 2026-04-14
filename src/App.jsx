@@ -425,7 +425,8 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
     setIsNameRevealed(false);
 
     // Рассчитываем шаги так, чтобы эффект длился ровно 1 секунду (1000 мс)
-    const intervalMs = 40;
+    // ОПТИМИЗАЦИЯ ДЛЯ МОБИЛОК: Увеличен интервал с 40 до 80 мс. Убирает жесткие тормоза!
+    const intervalMs = 80;
     const totalSteps = 1000 / intervalMs; 
     const step = maxLen / totalSteps;
 
@@ -1043,14 +1044,21 @@ const App = () => {
 
   // === ЯДЕРНАЯ ОЧИСТКА И БЕЗОПАСНЫЙ ЗАПУСК SERVICE WORKER (Решение проблемы белого экрана) ===
   useEffect(() => {
+    // 1. АБСОЛЮТНО ЖЕСТКАЯ ОЧИСТКА КЭША БРАУЗЕРА (убивает старые белые экраны на мобилках)
+    if ('caches' in window) {
+      caches.keys().then((names) => {
+        names.forEach(name => caches.delete(name));
+      });
+    }
+
     if ('serviceWorker' in navigator) {
-      // 1. Принудительно убиваем все зависшие/старые воркеры, которые отдают сломанный кэш
+      // 2. Принудительно убиваем все зависшие/старые воркеры, которые отдают сломанный кэш
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         for (let registration of registrations) {
           registration.unregister();
         }
       }).then(() => {
-        // 2. Только после полной очистки регистрируем заново. 
+        // 3. Только после полной очистки регистрируем заново. 
         // Без агрессивных циклов и forced reloads (которые вешают Safari и ломают Chrome).
         navigator.serviceWorker.register('/sw.js').catch((err) => console.log('SW Error:', err));
       }).catch(() => {});
