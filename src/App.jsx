@@ -27,7 +27,7 @@ const CONTENT = {
       websiteText: 'Подробнее...',
       websiteLink: 'https://t.me/svetlanahozuaenko',
       actionText: 'ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ',
-      actionLink: 'https://t.me/lanahozuaenko?text=Здравствуйте! Хочу записаться на консультацию.',
+      actionLink: 'https://t.me/lanahozuaenko?text=Здравствуйте, Светлана! Хочу записаться на консультацию.',
     },
     leadMagnet: {
       title: 'ПОДАРОК',
