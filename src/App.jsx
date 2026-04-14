@@ -27,14 +27,14 @@ const CONTENT = {
       websiteText: 'Подробнее...',
       websiteLink: 'https://t.me/svetlanahozuaenko',
       actionText: 'ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ',
-      actionLink: 'https://t.me/svetlanahozuaenko?text=Здравствуйте! Хочу записаться на консультацию.',
+      actionLink: 'https://t.me/lanahozuaenko?text=Здравствуйте! Хочу записаться на консультацию.',
     },
     leadMagnet: {
       title: 'ПОДАРОК',
       description: 'Диагностика. Нажмите кнопку, чтобы записаться на диагностику и начать трансформацию.',
       buttonText: 'ЗАПИСАТЬСЯ НА ДИАГНОСТИКУ',
       promoCode: 'DIAGNOSTIKA',
-      link: 'https://t.me/svetlanahozuaenko?text=Привет! У меня есть ПОДАРОК, хочу записаться на диагностику',
+      link: 'https://t.me/lanahozuaenko?text=Привет, Светлана! У меня есть промокод DIAGNOSTIKA, хочу записаться на диагностику',
     },
     contact: {
       phone: '+79779755199',
@@ -123,7 +123,7 @@ const CONTENT = {
 
   // 📊 АНАЛИТИКА (Общая для всех языков)
   analytics: {
-    yandexMetricaId: '108395630', 
+    yandexMetricaId: '108526195', 
   }
 };
 
