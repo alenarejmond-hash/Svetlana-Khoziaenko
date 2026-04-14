@@ -47,7 +47,7 @@ const CONTENT = {
       profile: {
         title: 'Обо мне',
         // Пример использования \n\n для абзацев:
-        desc: 'Меня зовут Светлана Хозяенко.\nЯ - организатор трансформационных туров для женщин и цифровой психолог из Москвы.\n\n Помогаю женщинам поверить в себя и увидеть свою ценность. Через цифры я помогаю человеку лучше понять свои сильные стороны, таланты и жизненные задачи.'
+        desc: 'Меня зовут Светлана Хозяенко.\nЯ - организатор трансформационных туров для женщин и цифровой психолог из Москвы.\n\n Помогаю женщинам поверить в себя и увидеть свою ценность.'
       },
       nano: {
         title: 'Полная консультация',
@@ -78,7 +78,9 @@ const CONTENT = {
         title: 'Календарь успеха 2026',
         desc: 'Позволяет грамотно построить стратегию на каждый день, месяц и год в целом.\n\nВы сможете достичь успеха в любой сфере, легко получать желаемое и изменить свою жизнь!',
         priceLabel: 'СТОИМОСТЬ',
-        price: '3 399 ₽'
+        price: '3 399 ₽',
+        actionText: 'ЗАКАЗАТЬ',
+        actionLink: 'https://t.me/lanahozuaenko?text=Привет, Светлана! Хочу заказать Календарь успеха 2026'
       },
       mentoring: {
         title: 'Личное сопровождение',
@@ -92,7 +94,9 @@ const CONTENT = {
         desc: 'Пространство для перезагрузки и внутренних трансформаций.\n\nЭто не просто отдых — это время, когда женщина может остановиться, услышать себя, найти новые смыслы и вдохновение в компании единомышленников.',
         priceLabel: 'СТОИМОСТЬ',
         price: 'По запросу',
-        oldPrice: ''
+        oldPrice: '',
+        actionText: 'ОТПРАВИТЬ ЗАПРОС',
+        actionLink: 'https://t.me/lanahozuaenko?text=Привет, Светлана! Хочу подать заявку на тур для женщин'
       },
       reviewsTitle: 'Отзывы',
       reviews: [
@@ -882,9 +886,9 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
               className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2 shrink-0"
               onClick={(e) => e.stopPropagation()}
             >
-              <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#064e3b] to-black backdrop-blur-md text-emerald-100 font-serif text-[7px] sm:text-[9px] uppercase tracking-normal sm:tracking-[0.1em] py-3.5 sm:py-4 px-1.5 sm:px-2 rounded-2xl flex items-center justify-center gap-1 sm:gap-1.5 hover:from-[#047857] transition-all shadow-[0_0_25px_rgba(6,78,59,0.3)] border border-emerald-500/40 group active:scale-95 whitespace-nowrap overflow-hidden">
+              <a href={CONTENT[lang].views[view]?.actionLink || CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#064e3b] to-black backdrop-blur-md text-emerald-100 font-serif text-[7px] sm:text-[9px] uppercase tracking-normal sm:tracking-[0.1em] py-3.5 sm:py-4 px-1.5 sm:px-2 rounded-2xl flex items-center justify-center gap-1 sm:gap-1.5 hover:from-[#047857] transition-all shadow-[0_0_25px_rgba(6,78,59,0.3)] border border-emerald-500/40 group active:scale-95 whitespace-nowrap overflow-hidden">
                 <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
-                <span className="truncate">{CONTENT[lang].creator.actionText} &rarr;</span>
+                <span className="truncate">{CONTENT[lang].views[view]?.actionText || CONTENT[lang].creator.actionText} &rarr;</span>
               </a>
             </div>
           )}
@@ -997,6 +1001,7 @@ const App = () => {
         display: "standalone",
         background_color: "#0a0a0a",
         theme_color: "#059669",
+        orientation: "portrait", // Добавлена блокировка ориентации
         icons: [
           {
             src: "/icon-192.png",
