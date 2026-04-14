@@ -923,12 +923,10 @@ const App = () => {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
   const [sparks, setSparks] = useState([]);
-  const [bgOffset, setBgOffset] = useState({ x: 0, y: 0 });
   const [showShare, setShowShare] = useState(false); // Состояние для модального окна
   const [showPwaPrompt, setShowPwaPrompt] = useState(false); // Состояние для iOS плашки PWA
   const [copied, setCopied] = useState(false);       // Состояние для копирования ссылки
   const [isAudioPlaying, setIsAudioPlaying] = useState(false); // Состояние аудио
-  const [trail, setTrail] = useState([]); // Состояние для искристого шлейфа
   const cardRef = useRef(null);
   const audioCtxRef = useRef(null); // Реф для аудио контекста (чтобы звук не пропадал)
   const audioRef = useRef(null); // Надежный реф для HTML5 аудио
@@ -939,6 +937,8 @@ const App = () => {
   // РЕФЫ ДЛЯ ОПТИМИЗАЦИИ (Устранение лагов от движений)
   const globalMoveRafRef = useRef(null);
   const pointerMoveRafRef = useRef(null);
+  const bgSphere1Ref = useRef(null); // Реф для первого фонового шара
+  const bgSphere2Ref = useRef(null); // Реф для второго фонового шара
 
   // Инициализация Яндекс.Метрики
   useEffect(() => {
@@ -1000,7 +1000,13 @@ const App = () => {
         const y = (clientY / window.innerHeight - 0.5) * 80;
         
         // Инвертируем (-x, -y), чтобы фон плыл в противоположную от курсора сторону
-        setBgOffset({ x: -x, y: -y });
+        // Применяем стили напрямую к DOM, минуя React State (УБИРАЕТ ЛАГИ!)
+        if (bgSphere1Ref.current) {
+          bgSphere1Ref.current.style.transform = `translate(${-x}px, ${-y}px)`;
+        }
+        if (bgSphere2Ref.current) {
+          bgSphere2Ref.current.style.transform = `translate(${-x * 1.5}px, ${-y * 1.5}px)`;
+        }
       });
     };
 
@@ -1013,54 +1019,6 @@ const App = () => {
       if (globalMoveRafRef.current) cancelAnimationFrame(globalMoveRafRef.current);
     };
   }, []);
-
-  // Динамическая генерация PWA manifest.json (чтобы работала установка на экран)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const manifest = {
-        name: `${CONTENT[lang].creator.name1} ${CONTENT[lang].creator.name2} | ${CONTENT[lang].creator.role}`,
-        short_name: "Светлана Хозяенко",
-        start_url: window.location.pathname,
-        display: "standalone",
-        background_color: "#0a0a0a",
-        theme_color: "#059669",
-        orientation: "portrait", // Добавлена блокировка ориентации
-        icons: [
-          {
-            src: "/icon-192.png",
-            sizes: "192x192",
-            type: "image/png",
-            purpose: "any maskable"
-          },
-          {
-            src: "/icon-512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable"
-          }
-        ]
-      };
-      const stringManifest = JSON.stringify(manifest);
-      const blob = new Blob([stringManifest], { type: 'application/json' });
-      const manifestURL = URL.createObjectURL(blob);
-      let link = document.querySelector('link[rel="manifest"]');
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'manifest';
-        document.head.appendChild(link);
-      }
-      link.href = manifestURL;
-
-      // СПЕЦИАЛЬНЫЙ ТЕГ ДЛЯ IPHONE (apple-touch-icon), ЧТОБЫ УБРАТЬ ЗЕЛЕНЫЙ КВАДРАТ
-      let appleIcon = document.querySelector('link[rel="apple-touch-icon"]');
-      if (!appleIcon) {
-        appleIcon = document.createElement('link');
-        appleIcon.rel = 'apple-touch-icon';
-        document.head.appendChild(appleIcon);
-      }
-      appleIcon.href = '/icon-192.png';
-    }
-  }, [lang]);
 
   // Магнитный 3D наклон за курсором/пальцем
   const handlePointerMove = (e) => {
@@ -1326,23 +1284,14 @@ const App = () => {
       {/* Вставляем глобальные стили */}
       <style>{globalStyles}</style>
 
-      {/* Интерактивный шлейф из пыльцы */}
-      {trail.map(p => (
-        <div
-          key={p.id}
-          className="trail-particle"
-          style={{ left: p.x, top: p.y }}
-        />
-      ))}
-
       {/* Фоновое свечение приложения (Живые сферы) */}
       <div 
+        ref={bgSphere1Ref}
         className="fixed top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none transition-transform duration-1000 ease-out"
-        style={{ transform: `translate(${bgOffset.x}px, ${bgOffset.y}px)` }}
       ></div>
       <div 
+        ref={bgSphere2Ref}
         className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none transition-transform duration-1000 ease-out"
-        style={{ transform: `translate(${bgOffset.x * 1.5}px, ${bgOffset.y * 1.5}px)` }}
       ></div>
 
       {/* КОНТЕЙНЕР ВИЗИТКИ (3D Сцена с ограничением высоты для мобилок) */}
