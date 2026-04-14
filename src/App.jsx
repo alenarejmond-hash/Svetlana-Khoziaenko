@@ -1041,41 +1041,20 @@ const App = () => {
     }
   }, [lang]);
 
-  // УМНАЯ РЕГИСТРАЦИЯ Service Worker (Защита от белого экрана при обновлениях)
+  // === ЯДЕРНАЯ ОЧИСТКА И БЕЗОПАСНЫЙ ЗАПУСК SERVICE WORKER (Решение проблемы белого экрана) ===
   useEffect(() => {
-    // 1. Отлов ошибки загрузки старых файлов Vite (когда кэш устарел)
-    const handleViteError = (e) => {
-      if (e.message && (e.message.includes('Failed to fetch dynamically imported module') || e.message.includes('Importing a module script failed'))) {
-        console.log('Обнаружен старый кэш Vite, принудительная перезагрузка...');
-        window.location.reload(true);
-      }
-    };
-    window.addEventListener('error', handleViteError);
-
-    // 2. Регистрация и авто-обновление Service Worker
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(registration => {
-          // Принудительно ищем обновления воркера каждый раз
-          registration.update();
-          
-          // Если найдена новая версия — ждем её установки и перезагружаем страницу
-          registration.onupdatefound = () => {
-            const installingWorker = registration.installing;
-            if (installingWorker == null) return;
-            installingWorker.onstatechange = () => {
-              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                console.log('Доступно обновление, перезагрузка для применения...');
-                // Небольшая задержка, чтобы воркер успел перехватить управление
-                setTimeout(() => window.location.reload(true), 500);
-              }
-            };
-          };
-        }).catch(error => console.log('Ошибка регистрации ServiceWorker:', error));
-      });
+      // 1. Принудительно убиваем все зависшие/старые воркеры, которые отдают сломанный кэш
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      }).then(() => {
+        // 2. Только после полной очистки регистрируем заново. 
+        // Без агрессивных циклов и forced reloads (которые вешают Safari и ломают Chrome).
+        navigator.serviceWorker.register('/sw.js').catch((err) => console.log('SW Error:', err));
+      }).catch(() => {});
     }
-
-    return () => window.removeEventListener('error', handleViteError);
   }, []);
 
   // Магнитный 3D наклон за курсором/пальцем
