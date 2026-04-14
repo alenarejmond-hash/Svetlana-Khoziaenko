@@ -488,10 +488,10 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
 
           <div className="text-center pb-2">
             <h2 className="flex flex-col items-center justify-center mb-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              <span className="text-2xl sm:text-3xl font-sans font-light uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
+              <span className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
                 {hackerName1}
               </span>
-              <span className="text-2xl sm:text-3xl font-sans font-light uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
+              <span className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
                 {hackerName2}
               </span>
             </h2>
