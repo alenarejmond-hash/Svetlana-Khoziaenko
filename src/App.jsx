@@ -47,7 +47,7 @@ const CONTENT = {
       profile: {
         title: 'Обо мне',
         // Пример использования \n\n для абзацев:
-        desc: 'Меня зовут Светлана Хозяенко.\nЯ - организатор трансформационных туров для женщин и цифровой психолог из Москвы.\n\n Помогаю женщинам поверить в себя и увидеть свою ценность.'
+        desc: 'Меня зовут Светлана Хозяенко.\nЯ - организатор трансформационных туров для женщин и цифровой психолог из Москвы.\n\n Помогаю женщинам поверить в себя и увидеть свою ценность. Через цифры я помогаю человеку лучше понять свои сильные стороны, таланты и жизненные задачи.'
       },
       nano: {
         title: 'Полная консультация',
@@ -78,33 +78,27 @@ const CONTENT = {
         title: 'Календарь успеха 2026',
         desc: 'Позволяет грамотно построить стратегию на каждый день, месяц и год в целом.\n\nВы сможете достичь успеха в любой сфере, легко получать желаемое и изменить свою жизнь!',
         priceLabel: 'СТОИМОСТЬ',
-        price: '3 399 ₽',
-        actionText: 'ЗАКАЗАТЬ',
-        actionLink: 'https://t.me/lanahozuaenko?text=Привет, Светлана! Хочу заказать Календарь успеха 2026'
+        price: '3 399 ₽'
       },
       mentoring: {
         title: 'Личное сопровождение',
         duration: '1 месяц',
         desc: 'Индивидуальное сопровождение и глубокая работа с вашими запросами.',
         priceLabel: 'СТОИМОСТЬ',
-        price: '100 599 ₽',
-        actionText: 'ЗАПИСАТЬСЯ',
-        actionLink: 'https://t.me/lanahozuaenko?text=Привет, Светлана! Хочу записаться на личное сопровождение.'
+        price: '100 599 ₽'
       },
       tech: {
         title: 'Туры для женщин',
         desc: 'Пространство для перезагрузки и внутренних трансформаций.\n\nЭто не просто отдых — это время, когда женщина может остановиться, услышать себя, найти новые смыслы и вдохновение в компании единомышленников.',
         priceLabel: 'СТОИМОСТЬ',
         price: 'По запросу',
-        oldPrice: '',
-        actionText: 'ОТПРАВИТЬ ЗАПРОС',
-        actionLink: 'https://t.me/lanahozuaenko?text=Привет, Светлана! Хочу подать заявку на тур для женщин'
+        oldPrice: ''
       },
       reviewsTitle: 'Отзывы',
       reviews: [
-        { name: 'Екатерина', date: '29.03.2026', text: '"Хочу поблагодарить Светлану за консультацию! Профессионал своего дела! Я получила не только ответы на свои вопросы, но и вдохновение, чёткое понимание своих задач. Рекомендую каждому попробовать консультацию у Светланы."' },
-        { name: 'Татьяна', date: '28.03.2026', text: '"Благодарю Светлану за консультацию по цифровой психологии. Узнала о своих ведущих энергиях и поняла, что я иду своим путём души и мисии, помогаю и служу людям во благо, так как я помогающий практик. Было интересно узнать цифру успеха. Пошла применять в жизни. Очень рекомендую Светлану, она профессионал в своем деле!"' },
-        { name: 'Любовь', date: '27.12.2025', text: '"Я благодарна Светлане за подробный разбор меня и моего партнёра. Многое стало понятно и есть над чем работать, буду выстраивать отношения на языке партнёра, при этом не забывая о своих потребностях. Благодарю"' }
+        { name: 'Любовь', date: '27.12.2025', text: '"Я благодарна Светлане за подробный разбор меня и моего партнёра. Многое стало понятно и есть над чем работать, буду выстраивать отношения на языке партнёра, при этом не забывая о своих потребностях. Благодарю"' },
+        { name: 'Екатерина', date: '29.03.2026', text: '"Хочу поблагодарить Светлану за консультацию! Профессионал своего дела! Я получила не только ответы на свои вопросы, но вдохновение, чёткое понимание своих задач. Рекомендую каждому попробовать консультацию у Светланы."' },
+        { name: 'Татьяна', date: '28.03.2026', text: '"Благодарю Светлану за консультацию по цифровой психологии. Узнала о своих ведущих энергиях и поняла, что я иду своим путём души и мисии, помогаю и служу людям во благо, так как я помогающий практик. Было интересно узнать цифру успеха. Пошла применять в жизни. Очень рекомендую Светлану, она профессионал в своем деле!"' }
       ]
     },
     ui: {
@@ -425,8 +419,7 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
     setIsNameRevealed(false);
 
     // Рассчитываем шаги так, чтобы эффект длился ровно 1 секунду (1000 мс)
-    // ОПТИМИЗАЦИЯ ДЛЯ МОБИЛОК: Увеличен интервал с 40 до 80 мс. Убирает жесткие тормоза!
-    const intervalMs = 80;
+    const intervalMs = 40;
     const totalSteps = 1000 / intervalMs; 
     const step = maxLen / totalSteps;
 
@@ -491,10 +484,10 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
 
           <div className="text-center pb-2">
             <h2 className="flex flex-col items-center justify-center mb-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              <span className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
+              <span className="text-2xl sm:text-3xl font-sans font-light uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
                 {hackerName1}
               </span>
-              <span className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
+              <span className="text-2xl sm:text-3xl font-sans font-light uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
                 {hackerName2}
               </span>
             </h2>
@@ -889,9 +882,9 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
               className="mt-3 w-full no-tilt cursor-default relative z-20 flex flex-col gap-2 shrink-0"
               onClick={(e) => e.stopPropagation()}
             >
-              <a href={CONTENT[lang].views[view]?.actionLink || CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#064e3b] to-black backdrop-blur-md text-emerald-100 font-serif text-[7px] sm:text-[9px] uppercase tracking-normal sm:tracking-[0.1em] py-3.5 sm:py-4 px-1.5 sm:px-2 rounded-2xl flex items-center justify-center gap-1 sm:gap-1.5 hover:from-[#047857] transition-all shadow-[0_0_25px_rgba(6,78,59,0.3)] border border-emerald-500/40 group active:scale-95 whitespace-nowrap overflow-hidden">
+              <a href={CONTENT[lang].creator.actionLink} className="w-full bg-gradient-to-r from-[#064e3b] to-black backdrop-blur-md text-emerald-100 font-serif text-[7px] sm:text-[9px] uppercase tracking-normal sm:tracking-[0.1em] py-3.5 sm:py-4 px-1.5 sm:px-2 rounded-2xl flex items-center justify-center gap-1 sm:gap-1.5 hover:from-[#047857] transition-all shadow-[0_0_25px_rgba(6,78,59,0.3)] border border-emerald-500/40 group active:scale-95 whitespace-nowrap overflow-hidden">
                 <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover:scale-110 transition-transform shrink-0" />
-                <span className="truncate">{CONTENT[lang].views[view]?.actionText || CONTENT[lang].creator.actionText} &rarr;</span>
+                <span className="truncate">{CONTENT[lang].creator.actionText} &rarr;</span>
               </a>
             </div>
           )}
@@ -1042,26 +1035,14 @@ const App = () => {
     }
   }, [lang]);
 
-  // === ЯДЕРНАЯ ОЧИСТКА И БЕЗОПАСНЫЙ ЗАПУСК SERVICE WORKER (Решение проблемы белого экрана) ===
+  // Регистрация Service Worker для работы ОФФЛАЙН (в лесу!)
   useEffect(() => {
-    // 1. АБСОЛЮТНО ЖЕСТКАЯ ОЧИСТКА КЭША БРАУЗЕРА (убивает старые белые экраны на мобилках)
-    if ('caches' in window) {
-      caches.keys().then((names) => {
-        names.forEach(name => caches.delete(name));
-      });
-    }
-
     if ('serviceWorker' in navigator) {
-      // 2. Принудительно убиваем все зависшие/старые воркеры, которые отдают сломанный кэш
-      navigator.serviceWorker.getRegistrations().then((registrations) => {
-        for (let registration of registrations) {
-          registration.unregister();
-        }
-      }).then(() => {
-        // 3. Только после полной очистки регистрируем заново. 
-        // Без агрессивных циклов и forced reloads (которые вешают Safari и ломают Chrome).
-        navigator.serviceWorker.register('/sw.js').catch((err) => console.log('SW Error:', err));
-      }).catch(() => {});
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('ServiceWorker успешно зарегистрирован! Область:', registration.scope))
+          .catch(error => console.log('Ошибка регистрации ServiceWorker:', error));
+      });
     }
   }, []);
 
