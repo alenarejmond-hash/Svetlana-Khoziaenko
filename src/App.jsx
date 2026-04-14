@@ -14,7 +14,7 @@ const CONTENT = {
   // 🇷🇺 РУССКИЙ ЯЗЫК
   ru: {
     creator: {
-      bgImage: '/bg-creator.jpg',
+      bgImage: '/bg-creator.jpg',//главное фото
       avatar: '/avatar-creator.jpg', 
       audioGreeting: '/greeting.mp3', // 🔊 Ссылка на ваш аудиофайл (можно сделать разные для RU и EN)
       badge: 'TRANSFORMATION',
@@ -999,13 +999,13 @@ const App = () => {
         theme_color: "#059669",
         icons: [
           {
-            src: "icon-192.png",
+            src: "/icon-192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any maskable"
           },
           {
-            src: "icon-512.png",
+            src: "/icon-512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable"
@@ -1022,6 +1022,15 @@ const App = () => {
         document.head.appendChild(link);
       }
       link.href = manifestURL;
+
+      // СПЕЦИАЛЬНЫЙ ТЕГ ДЛЯ IPHONE (apple-touch-icon), ЧТОБЫ УБРАТЬ ЗЕЛЕНЫЙ КВАДРАТ
+      let appleIcon = document.querySelector('link[rel="apple-touch-icon"]');
+      if (!appleIcon) {
+        appleIcon = document.createElement('link');
+        appleIcon.rel = 'apple-touch-icon';
+        document.head.appendChild(appleIcon);
+      }
+      appleIcon.href = '/icon-192.png';
     }
   }, [lang]);
 
@@ -1184,7 +1193,7 @@ const App = () => {
 
   // Функции для шаринга
   const handleCopy = () => {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText('https://svetlana.appsea.ru');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -1195,7 +1204,7 @@ const App = () => {
         await navigator.share({
           title: CONTENT[lang].ui.shareTitle,
           text: CONTENT[lang].ui.shareText,
-          url: window.location.href,
+          url: 'https://svetlana.appsea.ru',
         });
       } catch (err) {
         console.log('Шаринг отменен');
@@ -1524,7 +1533,7 @@ const App = () => {
         
         {/* Динамический QR код (Офлайн генерация) */}
         <div className="bg-white p-4 rounded-3xl mb-6 shadow-[0_0_40px_rgba(255,255,255,0.15)] flex items-center justify-center min-h-[212px]">
-          <QRCodeOffline value={typeof window !== 'undefined' ? window.location.href : CONTENT[lang].creator.websiteLink} />
+          <QRCodeOffline value="https://svetlana.appsea.ru" />
         </div>
 
         <div className="flex gap-3 w-full">
