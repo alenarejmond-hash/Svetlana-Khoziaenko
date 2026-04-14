@@ -1004,7 +1004,6 @@ const App = () => {
         display: "standalone",
         background_color: "#0a0a0a",
         theme_color: "#059669",
-        orientation: "portrait", // Добавлена блокировка ориентации
         icons: [
           {
             src: "/icon-192.png",
