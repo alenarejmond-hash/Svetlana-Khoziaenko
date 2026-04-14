@@ -331,6 +331,41 @@ const globalStyles = `
 // ==========================================
 const HACKER_CHARS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
+const QRCodeOffline = ({ value }) => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const renderQR = () => {
+      if (window.QRCode && canvasRef.current) {
+        window.QRCode.toCanvas(canvasRef.current, value, {
+          width: 180,
+          margin: 1,
+          color: { dark: '#000000', light: '#ffffff' }
+        });
+      }
+    };
+
+    if (window.QRCode) {
+      renderQR();
+    } else {
+      const scriptId = 'qrcode-lib-script';
+      let script = document.getElementById(scriptId);
+      if (!script) {
+        script = document.createElement('script');
+        script.id = scriptId;
+        script.src = "https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js";
+        document.head.appendChild(script);
+      }
+      script.addEventListener('load', renderQR);
+    }
+
+    return () => { isMounted = false; };
+  }, [value]);
+
+  return <canvas ref={canvasRef} className="rounded-lg" width={180} height={180} />;
+};
+
 const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "emerald", startBurn = true, children }) => {
   // Цветовые темы огня (c1 - пепел/край, c2 - основной огонь, c3 - яркая вспышка)
   const themes = {
@@ -1485,18 +1520,14 @@ const App = () => {
             </button>
             
             <h3 className="text-xl font-bold text-white mb-2 tracking-wide">{CONTENT[lang].ui.shareTitle}</h3>
-            <p className="text-sm text-white/60 text-center mb-6 leading-relaxed">{CONTENT[lang].ui.shareDesc}</p>
-            
-            {/* Динамический QR код */}
-            <div className="bg-white p-4 rounded-3xl mb-6 shadow-[0_0_40px_rgba(255,255,255,0.15)] flex items-center justify-center">
-              <img 
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : CONTENT[lang].creator.websiteLink)}`} 
-                alt="QR Code" 
-                className="w-[180px] h-[180px] object-contain rounded-lg"
-              />
-            </div>
+        <p className="text-sm text-white/60 text-center mb-6 leading-relaxed">{CONTENT[lang].ui.shareDesc}</p>
+        
+        {/* Динамический QR код (Офлайн генерация) */}
+        <div className="bg-white p-4 rounded-3xl mb-6 shadow-[0_0_40px_rgba(255,255,255,0.15)] flex items-center justify-center min-h-[212px]">
+          <QRCodeOffline value={typeof window !== 'undefined' ? window.location.href : CONTENT[lang].creator.websiteLink} />
+        </div>
 
-            <div className="flex gap-3 w-full">
+        <div className="flex gap-3 w-full">
               <button 
                 onClick={handleCopy}
                 className="flex-1 bg-black/20 hover:bg-black/40 border border-white/10 text-white font-medium py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 transition-colors text-sm"
