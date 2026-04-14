@@ -413,8 +413,14 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 // 0. БОСС / СОЗДАТЕЛЬ 
 const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) => {
   const [isNameRevealed, setIsNameRevealed] = useState(false);
-  const [hackerName1, setHackerName1] = useState(() => CONTENT[lang].creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
-  const [hackerName2, setHackerName2] = useState(() => CONTENT[lang].creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)]));
+  
+  // ПЕРЕВОДИМ АНИМАЦИЮ НА РЕФЫ (БЕЗ ПЕРЕРИСОВКИ РЕАКТА = НОЛЬ ЛАГОВ)
+  const name1Ref = useRef(null);
+  const name2Ref = useRef(null);
+
+  // Инициализируем случайными символами один раз при старте
+  const initialName1 = useRef(CONTENT[lang].creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)])).current;
+  const initialName2 = useRef(CONTENT[lang].creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)])).current;
 
   useEffect(() => {
     let iteration = 0;
@@ -431,15 +437,20 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
     const step = maxLen / totalSteps;
 
     const interval = setInterval(() => {
-      setHackerName1(target1.split("").map((letter, index) => {
-        if (index < iteration) return target1[index];
-        return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
-      }).join(""));
+      // МЕНЯЕМ ТЕКСТ НАПРЯМУЮ В DOM БЕЗ STATE! ЭТО УБИРАЕТ ЛАГИ!
+      if (name1Ref.current) {
+        name1Ref.current.innerText = target1.split("").map((letter, index) => {
+          if (index < iteration) return target1[index];
+          return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
+        }).join("");
+      }
 
-      setHackerName2(target2.split("").map((letter, index) => {
-        if (index < iteration) return target2[index];
-        return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
-      }).join(""));
+      if (name2Ref.current) {
+        name2Ref.current.innerText = target2.split("").map((letter, index) => {
+          if (index < iteration) return target2[index];
+          return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
+        }).join("");
+      }
 
       if (iteration >= maxLen) {
         clearInterval(interval);
@@ -491,11 +502,11 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
 
           <div className="text-center pb-2">
             <h2 className="flex flex-col items-center justify-center mb-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              <span className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
-                {hackerName1}
+              <span ref={name1Ref} className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
+                {initialName1}
               </span>
-              <span className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
-                {hackerName2}
+              <span ref={name2Ref} className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
+                {initialName2}
               </span>
             </h2>
             <div className="flex flex-col items-center gap-3 mt-3">
