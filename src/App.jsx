@@ -425,8 +425,8 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
     setIsNameRevealed(false);
 
     // Рассчитываем шаги так, чтобы эффект длился ровно 1 секунду (1000 мс)
-    // ОПТИМИЗАЦИЯ ДЛЯ МОБИЛОК: Увеличен интервал с 40 до 80 мс. Убирает жесткие тормоза!
-    const intervalMs = 80;
+    // Возвращаем быстрый интервал для плавности анимации букв!
+    const intervalMs = 40;
     const totalSteps = 1000 / intervalMs; 
     const step = maxLen / totalSteps;
 
@@ -924,6 +924,10 @@ const App = () => {
   const isFlippingRef = useRef(false); // Реф для блокировки наклона во время переворота
   const isScrollingRef = useRef(false); // Реф для блокировки переворота во время скролла
   const scrollTimeoutRef = useRef(null); // Реф таймера для сброса скролла
+  
+  // РЕФЫ ДЛЯ ОПТИМИЗАЦИИ (Устранение лагов от движений)
+  const globalMoveRafRef = useRef(null);
+  const pointerMoveRafRef = useRef(null);
 
   // Инициализация Яндекс.Метрики
   useEffect(() => {
@@ -974,23 +978,28 @@ const App = () => {
   // Глобальный параллакс фона (Живые сферы)
   useEffect(() => {
     const handleGlobalMove = (e) => {
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      if (globalMoveRafRef.current) cancelAnimationFrame(globalMoveRafRef.current);
       
-      // Вычисляем смещение от центра экрана (максимум 80px)
-      const x = (clientX / window.innerWidth - 0.5) * 80;
-      const y = (clientY / window.innerHeight - 0.5) * 80;
-      
-      // Инвертируем (-x, -y), чтобы фон плыл в противоположную от курсора сторону
-      setBgOffset({ x: -x, y: -y });
+      globalMoveRafRef.current = requestAnimationFrame(() => {
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        // Вычисляем смещение от центра экрана (максимум 80px)
+        const x = (clientX / window.innerWidth - 0.5) * 80;
+        const y = (clientY / window.innerHeight - 0.5) * 80;
+        
+        // Инвертируем (-x, -y), чтобы фон плыл в противоположную от курсора сторону
+        setBgOffset({ x: -x, y: -y });
+      });
     };
 
-    window.addEventListener('mousemove', handleGlobalMove);
-    window.addEventListener('touchmove', handleGlobalMove);
+    window.addEventListener('mousemove', handleGlobalMove, { passive: true });
+    window.addEventListener('touchmove', handleGlobalMove, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleGlobalMove);
       window.removeEventListener('touchmove', handleGlobalMove);
+      if (globalMoveRafRef.current) cancelAnimationFrame(globalMoveRafRef.current);
     };
   }, []);
 
@@ -1061,32 +1070,37 @@ const App = () => {
       return;
     }
     
-    const rect = cardRef.current.getBoundingClientRect();
-    
-    // Поддержка как мыши, так и тач-событий
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    // Максимальный угол наклона увеличен с 15 до 25 градусов для большей подвижности
-    const rotateX = ((y - centerY) / centerY) * -25;
-    const rotateY = ((x - centerX) / centerX) * 25;
-    
-    // Вычисляем позицию блика (в процентах)
-    const glareX = (x / rect.width) * 100;
-    const glareY = (y / rect.height) * 100;
-    
-    setRotate({ x: rotateX, y: rotateY });
-    setGlare({ x: glareX, y: glareY, opacity: 1 });
+    if (pointerMoveRafRef.current) cancelAnimationFrame(pointerMoveRafRef.current);
+
+    pointerMoveRafRef.current = requestAnimationFrame(() => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Максимальный угол наклона увеличен с 15 до 25 градусов для большей подвижности
+      const rotateX = ((y - centerY) / centerY) * -25;
+      const rotateY = ((x - centerX) / centerX) * 25;
+      
+      // Вычисляем позицию блика (в процентах)
+      const glareX = (x / rect.width) * 100;
+      const glareY = (y / rect.height) * 100;
+      
+      setRotate({ x: rotateX, y: rotateY });
+      setGlare({ x: glareX, y: glareY, opacity: 1 });
+    });
   };
 
   // Сброс наклона, когда курсор уходит
   const handlePointerLeave = () => {
+    if (pointerMoveRafRef.current) cancelAnimationFrame(pointerMoveRafRef.current);
     if (isFlippingRef.current) return;
     setRotate({ x: 0, y: 0 });
     setGlare(prev => ({ ...prev, opacity: 0 }));
