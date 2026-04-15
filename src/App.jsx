@@ -1024,12 +1024,6 @@ const App = () => {
   const handlePointerMove = (e) => {
     // Блокируем наклон, если карточка прямо сейчас переворачивается
     if (isFlippingRef.current || !cardRef.current) return;
-    
-    // ФИКС ДЛЯ ANDROID/iOS: Игнорируем синтетические события мыши на сенсорных экранах,
-    // чтобы блик и наклон не "залипали" после переворота карточки (click).
-    if (e.type && e.type.includes('mouse') && typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) {
-      return;
-    }
 
     // ФИКС СКРОЛЛА: Сбрасываем наклон, если пользователь в данный момент листает контент
     if (isScrollingRef.current) {
@@ -1052,37 +1046,32 @@ const App = () => {
       return;
     }
     
+    const rect = cardRef.current.getBoundingClientRect();
+    
+    // Поддержка как мыши, так и тач-событий
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-    if (pointerMoveRafRef.current) cancelAnimationFrame(pointerMoveRafRef.current);
-
-    pointerMoveRafRef.current = requestAnimationFrame(() => {
-      if (!cardRef.current) return;
-      const rect = cardRef.current.getBoundingClientRect();
-      
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      // Максимальный угол наклона увеличен с 15 до 25 градусов для большей подвижности
-      const rotateX = ((y - centerY) / centerY) * -25;
-      const rotateY = ((x - centerX) / centerX) * 25;
-      
-      // Вычисляем позицию блика (в процентах)
-      const glareX = (x / rect.width) * 100;
-      const glareY = (y / rect.height) * 100;
-      
-      setRotate({ x: rotateX, y: rotateY });
-      setGlare({ x: glareX, y: glareY, opacity: 1 });
-    });
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    // Максимальный угол наклона увеличен с 15 до 25 градусов для большей подвижности
+    const rotateX = ((y - centerY) / centerY) * -25;
+    const rotateY = ((x - centerX) / centerX) * 25;
+    
+    // Вычисляем позицию блика (в процентах)
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+    
+    setRotate({ x: rotateX, y: rotateY });
+    setGlare({ x: glareX, y: glareY, opacity: 1 });
   };
 
   // Сброс наклона, когда курсор уходит
   const handlePointerLeave = () => {
-    if (pointerMoveRafRef.current) cancelAnimationFrame(pointerMoveRafRef.current);
     if (isFlippingRef.current) return;
     setRotate({ x: 0, y: 0 });
     setGlare(prev => ({ ...prev, opacity: 0 }));
@@ -1331,7 +1320,6 @@ const App = () => {
           onMouseLeave={handlePointerLeave}
           onTouchMove={handlePointerMove}
           onTouchEnd={handlePointerLeave}
-          onTouchCancel={handlePointerLeave}
         >
           {/* Искры (Magic Dust) */}
           {sparks.map(spark => (
