@@ -1055,8 +1055,20 @@ const App = () => {
       const centerY = rect.height / 2;
       
       // Максимальный угол наклона увеличен с 15 до 25 градусов для большей подвижности
-      const rotateX = ((y - centerY) / centerY) * -25;
-      const rotateY = ((x - centerX) / centerX) * 25;
+      let rotateX = ((y - centerY) / centerY) * -25;
+      let rotateY = ((x - centerX) / centerX) * 25;
+      
+      // ЖЕСТКОЕ ОГРАНИЧЕНИЕ ГРАДУСОВ (ЗАЩИТА ОТ "БОКОМ ПОВОРАЧИВАЕТ")
+      // Не даем Андроиду уйти за пределы 25 градусов, даже если палец улетел за экран
+      rotateX = Math.max(-25, Math.min(25, rotateX));
+      rotateY = Math.max(-25, Math.min(25, rotateY));
+
+      // МАТЕМАТИЧЕСКИЙ ФИКС ДЛЯ ОБРАТНОЙ СТОРОНЫ
+      // Если визитка перевернута, оси зеркалятся! Без этого ее крючит.
+      if (isFlipped) {
+        rotateX = -rotateX;
+        rotateY = -rotateY;
+      }
       
       // Вычисляем позицию блика (в процентах)
       const glareX = (x / rect.width) * 100;
@@ -1318,6 +1330,7 @@ const App = () => {
           onMouseLeave={handlePointerLeave}
           onTouchMove={handlePointerMove}
           onTouchEnd={handlePointerLeave}
+          onTouchCancel={handlePointerLeave}
         >
           {/* Искры (Magic Dust) */}
           {sparks.map(spark => (
