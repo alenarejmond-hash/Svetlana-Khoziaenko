@@ -1025,6 +1025,19 @@ const App = () => {
     // Блокируем наклон, если карточка прямо сейчас переворачивается
     if (isFlippingRef.current || !cardRef.current) return;
     
+    // ФИКС ДЛЯ ANDROID/iOS: Игнорируем синтетические события мыши на сенсорных экранах,
+    // чтобы блик и наклон не "залипали" после переворота карточки (click).
+    if (e.type && e.type.includes('mouse') && typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) {
+      return;
+    }
+
+    // ФИКС СКРОЛЛА: Сбрасываем наклон, если пользователь в данный момент листает контент
+    if (isScrollingRef.current) {
+      setRotate({ x: 0, y: 0 });
+      setGlare(prev => ({ ...prev, opacity: 0 }));
+      return;
+    }
+
     // БЛОКИРОВКА 3D ДВИЖЕНИЯ В РАЗДЕЛЕ "ПОДАРОК"
     if (view === 'lead') {
       setRotate({ x: 0, y: 0 });
@@ -1318,6 +1331,7 @@ const App = () => {
           onMouseLeave={handlePointerLeave}
           onTouchMove={handlePointerMove}
           onTouchEnd={handlePointerLeave}
+          onTouchCancel={handlePointerLeave}
         >
           {/* Искры (Magic Dust) */}
           {sparks.map(spark => (
