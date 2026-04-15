@@ -335,42 +335,6 @@ const globalStyles = `
 // ==========================================
 // 🪄 КОМПОНЕНТ ЭФФЕКТА СГОРАНИЯ (УМНАЯ ЦВЕТОВАЯ ПОДСТРОЙКА)
 // ==========================================
-const HACKER_CHARS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-
-const QRCodeOffline = ({ value }) => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    let isMounted = true;
-    const renderQR = () => {
-      if (window.QRCode && canvasRef.current) {
-        window.QRCode.toCanvas(canvasRef.current, value, {
-          width: 180,
-          margin: 1,
-          color: { dark: '#000000', light: '#ffffff' }
-        });
-      }
-    };
-
-    if (window.QRCode) {
-      renderQR();
-    } else {
-      const scriptId = 'qrcode-lib-script';
-      let script = document.getElementById(scriptId);
-      if (!script) {
-        script = document.createElement('script');
-        script.id = scriptId;
-        script.src = "https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js";
-        document.head.appendChild(script);
-      }
-      script.addEventListener('load', renderQR);
-    }
-
-    return () => { isMounted = false; };
-  }, [value]);
-
-  return <canvas ref={canvasRef} className="rounded-lg" width={180} height={180} />;
-};
 
 const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor = "emerald", startBurn = true, children }) => {
   // Цветовые темы огня (c1 - пепел/край, c2 - основной огонь, c3 - яркая вспышка)
@@ -412,56 +376,6 @@ const BurnRevealImage = ({ src, className, style, imgClassName = "", burnColor =
 
 // 0. БОСС / СОЗДАТЕЛЬ 
 const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) => {
-  const [isNameRevealed, setIsNameRevealed] = useState(false);
-  
-  // ПЕРЕВОДИМ АНИМАЦИЮ НА РЕФЫ (БЕЗ ПЕРЕРИСОВКИ РЕАКТА = НОЛЬ ЛАГОВ)
-  const name1Ref = useRef(null);
-  const name2Ref = useRef(null);
-
-  // Инициализируем случайными символами один раз при старте
-  const initialName1 = useRef(CONTENT[lang].creator.name1.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)])).current;
-  const initialName2 = useRef(CONTENT[lang].creator.name2.replace(/./g, () => HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)])).current;
-
-  useEffect(() => {
-    let iteration = 0;
-    const target1 = CONTENT[lang].creator.name1;
-    const target2 = CONTENT[lang].creator.name2;
-    const maxLen = Math.max(target1.length, target2.length);
-
-    setIsNameRevealed(false);
-
-    // Рассчитываем шаги так, чтобы эффект длился ровно 1 секунду (1000 мс)
-    // Возвращаем быстрый интервал для плавности анимации букв!
-    const intervalMs = 40;
-    const totalSteps = 1000 / intervalMs; 
-    const step = maxLen / totalSteps;
-
-    const interval = setInterval(() => {
-      // МЕНЯЕМ ТЕКСТ НАПРЯМУЮ В DOM БЕЗ STATE! ЭТО УБИРАЕТ ЛАГИ!
-      if (name1Ref.current) {
-        name1Ref.current.innerText = target1.split("").map((letter, index) => {
-          if (index < iteration) return target1[index];
-          return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
-        }).join("");
-      }
-
-      if (name2Ref.current) {
-        name2Ref.current.innerText = target2.split("").map((letter, index) => {
-          if (index < iteration) return target2[index];
-          return HACKER_CHARS[Math.floor(Math.random() * HACKER_CHARS.length)];
-        }).join("");
-      }
-
-      if (iteration >= maxLen) {
-        clearInterval(interval);
-        setIsNameRevealed(true);
-      }
-      iteration += step; // Идеально выверенная скорость для 1 секунды
-    }, intervalMs);
-
-    return () => clearInterval(interval);
-  }, [lang]);
-
   const handlePromoClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -486,7 +400,7 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
         <div className="absolute inset-0 bg-gradient-to-t from-black from-0% via-black/80 via-[15%] to-transparent to-[30%] pointer-events-none z-0 rounded-[2.5rem]"></div>
 
         {/* ЗАМЕНА СТАТИЧНОГО ФОНА НА СГОРАЮЩИЙ (Изумрудный огонь) ПОВЕРХ ВСЕХ СЛОЕВ */}
-        <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="emerald" startBurn={isNameRevealed}>
+        <BurnRevealImage src={CONTENT[lang].creator.bgImage} className="grayscale-[0.2]" burnColor="emerald" startBurn={true}>
           {/* ЗАТЕМНЕНИЕ ПОВЕРХ ФОТО ДЛЯ ИДЕАЛЬНОЙ ЧИТАЕМОСТИ ТЕКСТА (ТОЛЬКО ВНИЗУ) */}
           <div className="absolute bottom-0 inset-x-0 h-[65%] bg-gradient-to-t from-[#01140b] via-[#01140b]/80 to-transparent pointer-events-none z-0 rounded-b-[2.5rem]"></div>
         </BurnRevealImage>
@@ -502,11 +416,11 @@ const CreatorCard = ({ lang, view, setView, isScrollingRef, scrollTimeoutRef }) 
 
           <div className="text-center pb-2">
             <h2 className="flex flex-col items-center justify-center mb-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              <span ref={name1Ref} className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
-                {initialName1}
+              <span className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200 mb-1">
+                {CONTENT[lang].creator.name1}
               </span>
-              <span ref={name2Ref} className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
-                {initialName2}
+              <span className="text-2xl sm:text-3xl font-sans font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-emerald-100 via-white to-emerald-200">
+                {CONTENT[lang].creator.name2}
               </span>
             </h2>
             <div className="flex flex-col items-center gap-3 mt-3">
@@ -1515,9 +1429,18 @@ const App = () => {
             <h3 className="text-xl font-bold text-white mb-2 tracking-wide">{CONTENT[lang].ui.shareTitle}</h3>
         <p className="text-sm text-white/60 text-center mb-6 leading-relaxed">{CONTENT[lang].ui.shareDesc}</p>
         
-        {/* Динамический QR код (Офлайн генерация) */}
+        {/* Динамический QR код (Офлайн) */}
         <div className="bg-white p-4 rounded-3xl mb-6 shadow-[0_0_40px_rgba(255,255,255,0.15)] flex items-center justify-center min-h-[212px]">
-          <QRCodeOffline value="https://svetlana.appsea.ru" />
+          <img 
+            src="/qr.png" 
+            alt="QR Code" 
+            className="w-[180px] h-[180px] object-contain rounded-lg"
+            onError={(e) => {
+              // Фолбек: если картинку забыли добавить в папку public, загружаем из интернета
+              e.target.onerror = null; 
+              e.target.src = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=https://svetlana.appsea.ru";
+            }}
+          />
         </div>
 
         <div className="flex gap-3 w-full">
