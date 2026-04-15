@@ -1294,6 +1294,17 @@ const App = () => {
         className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none transition-transform duration-1000 ease-out"
       ></div>
 
+      {/* ТУТ МОЖНО ПОМЕНЯТЬ ЦВЕТ НАДПИСИ НАВЕРХУ: сейчас текст почти прозрачный (text-white/10).
+          Если нужно поярче, поменяй класс text-white/10 на text-white/30 или text-emerald-500/50 */}
+      <a 
+        href="https://nice-app.ru/" 
+        target="_blank" 
+        rel="noreferrer" 
+        className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 text-white/10 hover:text-emerald-400 text-[8px] sm:text-[9.5px] font-sans font-medium uppercase tracking-[0.2em] sm:tracking-[0.25em] transition-colors duration-500 whitespace-nowrap pointer-events-auto"
+      >
+        DESIGN & CODE BY ELENA SOTNIKOVA
+      </a>
+
       {/* КОНТЕЙНЕР ВИЗИТКИ (3D Сцена с ограничением высоты для мобилок) */}
       <div 
         className="w-full flex justify-center relative z-40 items-center"
