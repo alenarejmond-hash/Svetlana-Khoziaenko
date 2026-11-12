@@ -1196,7 +1196,7 @@ const App = () => {
   };
 
   return (
-    <div className="fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center p-4 sm:p-8">
+    <div translate="no" className="notranslate fixed inset-0 w-full h-full bg-neutral-950 flex flex-col font-sans select-none transition-all duration-500 overflow-hidden justify-center items-center p-4 sm:p-8">
       {/* Вставляем глобальные стили */}
       <style>{globalStyles}</style>
 
@@ -1213,7 +1213,7 @@ const App = () => {
       {/* ТУТ МОЖНО ПОМЕНЯТЬ ЦВЕТ НАДПИСИ НАВЕРХУ: сейчас текст почти прозрачный (text-white/10).
           Если нужно поярче, поменяй класс text-white/10 на text-white/30 или text-emerald-500/50 */}
       <a 
-        href="https://nice-app.ru/" 
+        href="https://appseapro.com" 
         target="_blank" 
         rel="noreferrer" 
         className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 text-white/10 hover:text-emerald-400 text-[8px] sm:text-[9.5px] font-sans font-medium uppercase tracking-[0.2em] sm:tracking-[0.25em] transition-colors duration-500 whitespace-nowrap pointer-events-auto"
